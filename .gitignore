@@ -1,0 +1,11 @@
+# Arquivos de Senha e Sistema
+.env
+news_bot.db
+__pycache__/
+*.pyc
+
+# Ignorar pastas de ambiente virtual (se tiver)
+venv/
+env/
+.idea/
+.vscode/
