@@ -1,138 +1,498 @@
-
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</title>
-        
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    <title>Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #e10098; --text: #111; --bg: #fff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
+        :root { 
+            --accent: #e10098; 
+            --text: #0a0a0a; 
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e1e4e8;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
         
-        /* HEADER */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* HEADER PREMIUM */
         .site-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; border-bottom: 1px solid #eee;
-            background: #fff; z-index: 100; position: sticky; top: 0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 24px 48px; 
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100; 
+            position: sticky; 
+            top: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #000; }
-        .logo span { color: var(--accent); }
-
-        /* DESKTOP CATEGORIES */
-        .desktop-nav { display: flex; gap: 25px; }
-        .nav-link { text-decoration: none; color: #555; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav-link:hover { color: var(--accent); }
-
-        /* HAMBURGER ICON */
-        .hamburger { cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; }
         
-        /* SIDEBAR (Menu Lateral Escondido) */
-        .sidebar {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: #111; color: #fff; z-index: 200;
-            padding: 40px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; gap: 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        .site-header.scrolled {
+            padding: 16px 48px;
+            box-shadow: 0 2px 20px var(--shadow);
         }
-        .sidebar.active { right: 0; }
-        .sidebar-close { align-self: flex-end; cursor: pointer; font-size: 2rem; margin-bottom: 20px; }
-        .sidebar-link { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .sidebar-link:hover { color: var(--accent); border-color: var(--accent); }
+        
+        .logo { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            text-decoration: none; 
+            color: var(--text);
+            transition: transform 0.2s;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logo span { 
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-        /* HERO IMAGE FIXA NA NOTÍCIA */
+        /* DESKTOP NAV PREMIUM */
+        .desktop-nav { 
+            display: flex; 
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-link { 
+            text-decoration: none; 
+            color: #555; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER PREMIUM */
+        .hamburger { 
+            cursor: pointer; 
+            width: 32px;
+            height: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 201;
+        }
+        
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10.5px) rotate(45deg);
+            background: white;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10.5px) rotate(-45deg);
+            background: white;
+        }
+
+        /* SIDEBAR PREMIUM */
+        .sidebar {
+            position: fixed; 
+            top: 0; 
+            right: -400px; 
+            width: 380px; 
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #fff; 
+            z-index: 200;
+            padding: 60px 40px;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active { 
+            right: 0; 
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            backdrop-filter: blur(4px);
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .sidebar-close { 
+            align-self: flex-end; 
+            cursor: pointer; 
+            font-size: 2.5rem; 
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-link { 
+            color: rgba(255, 255, 255, 0.9); 
+            text-decoration: none; 
+            font-size: 1.75rem; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 24px 0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar-link:hover { 
+            color: white;
+            padding-left: 12px;
+        }
+        
+        .sidebar-link:hover::before {
+            left: 0;
+        }
+
+        /* HERO IMAGE PREMIUM */
         .article-hero-img {
             width: 100%;
-            height: 500px; /* Altura Fixa */
-            object-fit: cover; /* Garante que a imagem preencha sem distorcer */
-            background: #f0f0f0;
+            height: 600px;
+            object-fit: cover;
             display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ARTICLE STYLES PREMIUM */
+        .article-container { 
+            max-width: 720px; 
+            margin: 0 auto; 
+            padding: 60px 24px;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .article-meta { 
+            font-family: 'Fira Code', monospace;
+            color: var(--accent); 
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 16px; 
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-title { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 900; 
+            line-height: 1.05; 
+            margin-bottom: 32px; 
+            letter-spacing: -2.5px;
+            color: var(--text);
+        }
+        
+        .article-summary {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 48px;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .article-body { 
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            color: #2a2a2a;
+        }
+        
+        .article-body p { 
+            margin-bottom: 32px;
+        }
+        
+        .article-body h2 { 
+            font-family: 'Inter', sans-serif;
+            font-weight: 800; 
+            font-size: 2rem; 
+            margin-top: 56px; 
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        
+        .article-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.2s;
+        }
+        
+        .article-body a:hover {
+            background: var(--accent);
+            color: white;
+            padding: 2px 4px;
+            margin: -2px -4px;
         }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .desktop-nav { display: none; } /* Esconde categorias no mobile */
-            .site-header { padding: 15px 20px; }
-            .article-hero-img { height: 350px; } /* Menor no celular */
+            .desktop-nav { display: none; }
+            .site-header { padding: 16px 24px; }
+            .article-hero-img { height: 400px; }
+            .article-container { padding: 40px 20px; }
+            .sidebar { width: 100%; right: -100%; }
+            .logo { font-size: 1.5rem; }
         }
         
-        /* ESTILOS COMUNS DE ARTIGO */
-        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .article-meta { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
-        .article-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
-        .article-body { font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.8; color: #333; }
-        .article-body p { margin-bottom: 25px; }
-        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 40px; margin-bottom: 15px; }
+        /* LOADING ANIMATION */
+        .loading-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 
     <script>
+        let sidebar = null;
+        let overlay = null;
+        let hamburger = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            sidebar = document.getElementById('sidebar');
+            overlay = document.getElementById('sidebar-overlay');
+            hamburger = document.querySelector('.hamburger');
+            
+            // Scroll header effect
+            let lastScroll = 0;
+            const header = document.querySelector('.site-header');
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+        
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                
+                // Prevent body scroll when menu is open
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        function closeMenu() {
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     </script>
     
-        <style>:root { --accent: #ff4400; }</style>
-    </head>
-    <body>
-        
+    <style>:root { --accent: #0055ff; }</style>
+</head>
+<body>
+    
     <header class="site-header">
         <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
-        
+
         <nav class="desktop-nav">
-            <a href="#" class="nav-link">Tech</a>
+            <a href="#" class="nav-link">Technology</a>
             <a href="#" class="nav-link">Science</a>
             <a href="#" class="nav-link">Business</a>
-            <a href="#" class="nav-link">Reviews</a>
+            <a href="#" class="nav-link">Culture</a>
         </nav>
 
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMenu()"></div>
+    
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-close" onclick="toggleMenu()">×</div>
-        <a href="index.html" class="sidebar-link">HOME</a>
-        <a href="#" class="sidebar-link">TECHNOLOGY</a>
-        <a href="#" class="sidebar-link">SCIENCE</a>
-        <a href="#" class="sidebar-link">CULTURE</a>
-        <a href="#" class="sidebar-link">ABOUT</a>
+        <div class="sidebar-close" onclick="closeMenu()">×</div>
+        <a href="index.html" class="sidebar-link" onclick="closeMenu()">HOME</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">ABOUT</a>
     </aside>
     
 
-        <img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="article-hero-img" alt="Hero Image">
+    <img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="article-hero-img" alt="Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos" loading="eager">
 
-        <article class="article-container">
-            <header>
-                <span class="article-meta">/// POLITICS • 2025-12-22</span>
-                <h1 class="article-title">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h1>
-                <div style="font-style:italic; color:#666; margin-bottom:30px;">
-                    ...
-                </div>
-            </header>
-            
-            <main class="article-body">
-                <h1>Ex-presidente dos EUA é envolvido em novo escândalo</h1>
+    <article class="article-container">
+        <header>
+            <span class="article-meta">/// POLITICS • 2025-12-22</span>
+            <h1 class="article-title">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h1>
+            <div class="article-summary">
+                ...
+            </div>
+        </header>
 
-<h2>Bill Clinton é mencionado em documentos secretos de Epstein</h2>
+        <main class="article-body">
+            <h2>Ex-presidente dos EUA em foco: Bill Clinton sob escrutínio após pedido de documentos de Epstein</h2>
 
-<p>Em uma nova revelação, um porta-voz do ex-presidente Bill Clinton pediu ao Departamento de Justiça (DOJ) dos EUA que libere os arquivos de Jeffrey Epstein, que mencionam o ex-presidente. A solicitação foi feita em resposta a uma notícia publicada pelo Politico, que revelou que os documentos secretos de Epstein continham informações sobre Clinton.</p>
+<p>Em uma movimentação que está gerando controvérsia, um porta-voz do ex-presidente dos EUA Bill Clinton pediu à Justiça Departamental (DOJ) para liberar documentos relacionados à financiadora de caridade e ex-amante de Clinton, Ghislaine Maxwell, que foram obtidos em uma investigação sobre o falecido empresário Jeffrey Epstein. A solicitação foi feita em um comunicado divulgado pela assessoria de imprensa de Clinton, que alega que os documentos podem ajudar a "esclarecer" a relação entre Clinton e Epstein.</p>
 
-<p>Segundo a notícia, o porta-voz de Clinton, Angel Ureña, disse que o ex-presidente está "preocupado" com a possibilidade de que os documentos sejam usados para difamar sua reputação. Ureña afirmou que Clinton não tem nada a esconder e que está disposto a cooperar com as autoridades para esclarecer a questão.</p>
+<p>O pedido de Clinton veio após a publicação de um artigo da Politico, que revelou que os documentos obtidos pela DOJ incluem mensagens de e-mail e outros materiais que podem relacionar Clinton a Epstein. A assessoria de imprensa de Clinton afirmou que o ex-presidente está cooperando plenamente com a investigação e que o pedido de documentos é uma medida para "garantir a transparência" e "esclarecer" a questão.</p>
 
-<p>A notícia do Politico foi publicada após a morte de Epstein, um bilionário e financista que foi condenado por tráfico de meninas. Epstein morreu em sua cela em 2019, e sua morte foi considerada um suicídio.</p>
+<h2>Contexto da investigação</h2>
 
-<p>Agora, a solicitação de Clinton para que o DOJ libere os arquivos de Epstein é vista como uma tentativa de esclarecer a questão e proteger sua reputação. No entanto, a notícia também levanta mais perguntas sobre a relação entre Clinton e Epstein, e sobre a possibilidade de que os documentos contenham informações sensíveis sobre o ex-presidente.</p>
+<p>A investigação sobre Epstein começou em 2019, após a morte do empresário em uma prisão federal. A polícia suspeita que Epstein se suicidou, mas a família do empresário alega que ele foi assassinado. A investigação revelou que Epstein era um dos principais financiadores de Ghislaine Maxwell, que foi condenada por tráfico de meninas e outras acusações.</p>
 
-<p>Enquanto isso, o DOJ ainda não se manifestou sobre a solicitação de Clinton. A agência está sob pressão para liberar os documentos, mas também está preocupada com a possibilidade de que eles contenham informações confidenciais.</p>
+<p>Clinton e Epstein foram amigos próximos e se conheciam há décadas. Clinton foi um dos principais convidados no iate de Epstein, o "Lolita Express", que foi utilizado para transportar meninas para Epstein. Embora Clinton tenha negado qualquer envolvimento com o tráfico de meninas, a assessoria de imprensa do ex-presidente admitiu que ele viajou no iate várias vezes.</p>
 
-<p>A notícia do Politico é apenas mais uma das muitas revelações que têm surgido sobre a relação entre Clinton e Epstein. A questão continua a ser um tema de debate e especulação, e é provável que a questão continue a ser discutida nos próximos dias.</p>
-            </main>
-            
-            <footer style="margin-top:50px; border-top:1px solid #ddd; padding-top:20px; font-size:0.8rem; color:#888;">
-                FONTE ORIGINAL: <a href="https://www.politico.com/news/2025/12/22/bill-clinton-epstein-files-release-00702986" target="_blank" style="color:var(--accent)">Politico</a>
-            </footer>
-        </article>
-    </body>
-    </html>
-    
+<h2>Implicações do pedido de documentos</h2>
+
+<p>O pedido de documentos de Clinton pode ter implicações significativas para a investigação sobre Epstein e Maxwell. Se os documentos forem liberados, podem revelar mais detalhes sobre a relação entre Clinton e Epstein e se o ex-presidente teve conhecimento sobre o tráfico de meninas.</p>
+
+<p>A assessoria de imprensa de Clinton afirmou que o ex-presidente está "preparado para cooperar" com a investigação e que o pedido de documentos é uma medida para "garantir a transparência" e "esclarecer" a questão. No entanto, a solicitação de Clinton também pode ser vista como uma tentativa de "limpar a reputação" do ex-presidente e evitar que mais informações sejam reveladas sobre a sua relação com Epstein.</p>
+
+<h2>Perspectivas futuras</h2>
+
+<p>A decisão da DOJ sobre o pedido de documentos de Clinton pode ter implicações significativas para a investigação sobre Epstein e Maxwell. Se os documentos forem liberados, podem revelar mais detalhes sobre a relação entre Clinton e Epstein e se o ex-presidente teve conhecimento sobre o tráfico de meninas.</p>
+
+<p>A assessoria de imprensa de Clinton afirmou que o ex-presidente está "preparado para cooperar" com a investigação e que o pedido de documentos é uma medida para "garantir a transparência" e "esclarecer" a questão. No entanto, a solicitação de Clinton também pode ser vista como uma tentativa de "limpar a reputação" do ex-presidente e evitar que mais informações sejam reveladas sobre a sua relação com Epstein.</p>
+
+<p>Enquanto a investigação continua, é provável que mais informações sejam reveladas sobre a relação entre Clinton e Epstein. A decisão da DOJ sobre o pedido de documentos de Clinton pode ter implicações significativas para a reputação do ex-presidente e para a investigação em geral.</p>
+        </main>
+
+        <footer style="margin-top:80px; padding-top:32px; border-top:1px solid var(--border); font-size:0.875rem; color:#666;">
+            <p style="margin-bottom:16px;"><strong>Fonte Original:</strong> <a href="https://www.politico.com/news/2025/12/22/bill-clinton-epstein-files-release-00702986" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent);">Politico</a></p>
+            <p style="color:#999; font-size:0.8rem;">Curadoria IA • Nexus Brief © 2025</p>
+        </footer>
+    </article>
+</body>
+</html>

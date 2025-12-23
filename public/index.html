@@ -1,250 +1,636 @@
-
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nexus Brief</title>
-        
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexus Brief - Curadoria inteligente de notícias premium sobre tecnologia, ciência e negócios">
+    <title>Nexus Brief - AI Curated News</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #e10098; --text: #111; --bg: #fff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
+        :root { 
+            --accent: #e10098; 
+            --text: #0a0a0a; 
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e1e4e8;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
         
-        /* HEADER */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* HEADER PREMIUM */
         .site-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; border-bottom: 1px solid #eee;
-            background: #fff; z-index: 100; position: sticky; top: 0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 24px 48px; 
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100; 
+            position: sticky; 
+            top: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #000; }
-        .logo span { color: var(--accent); }
-
-        /* DESKTOP CATEGORIES */
-        .desktop-nav { display: flex; gap: 25px; }
-        .nav-link { text-decoration: none; color: #555; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav-link:hover { color: var(--accent); }
-
-        /* HAMBURGER ICON */
-        .hamburger { cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; }
         
-        /* SIDEBAR (Menu Lateral Escondido) */
-        .sidebar {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: #111; color: #fff; z-index: 200;
-            padding: 40px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; gap: 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        .site-header.scrolled {
+            padding: 16px 48px;
+            box-shadow: 0 2px 20px var(--shadow);
         }
-        .sidebar.active { right: 0; }
-        .sidebar-close { align-self: flex-end; cursor: pointer; font-size: 2rem; margin-bottom: 20px; }
-        .sidebar-link { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .sidebar-link:hover { color: var(--accent); border-color: var(--accent); }
+        
+        .logo { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            text-decoration: none; 
+            color: var(--text);
+            transition: transform 0.2s;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logo span { 
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-        /* HERO IMAGE FIXA NA NOTÍCIA */
+        /* DESKTOP NAV PREMIUM */
+        .desktop-nav { 
+            display: flex; 
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-link { 
+            text-decoration: none; 
+            color: #555; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER PREMIUM */
+        .hamburger { 
+            cursor: pointer; 
+            width: 32px;
+            height: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 201;
+        }
+        
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10.5px) rotate(45deg);
+            background: white;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10.5px) rotate(-45deg);
+            background: white;
+        }
+
+        /* SIDEBAR PREMIUM */
+        .sidebar {
+            position: fixed; 
+            top: 0; 
+            right: -400px; 
+            width: 380px; 
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #fff; 
+            z-index: 200;
+            padding: 60px 40px;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active { 
+            right: 0; 
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            backdrop-filter: blur(4px);
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .sidebar-close { 
+            align-self: flex-end; 
+            cursor: pointer; 
+            font-size: 2.5rem; 
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-link { 
+            color: rgba(255, 255, 255, 0.9); 
+            text-decoration: none; 
+            font-size: 1.75rem; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 24px 0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar-link:hover { 
+            color: white;
+            padding-left: 12px;
+        }
+        
+        .sidebar-link:hover::before {
+            left: 0;
+        }
+
+        /* HERO IMAGE PREMIUM */
         .article-hero-img {
             width: 100%;
-            height: 500px; /* Altura Fixa */
-            object-fit: cover; /* Garante que a imagem preencha sem distorcer */
-            background: #f0f0f0;
+            height: 600px;
+            object-fit: cover;
             display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ARTICLE STYLES PREMIUM */
+        .article-container { 
+            max-width: 720px; 
+            margin: 0 auto; 
+            padding: 60px 24px;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .article-meta { 
+            font-family: 'Fira Code', monospace;
+            color: var(--accent); 
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 16px; 
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-title { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 900; 
+            line-height: 1.05; 
+            margin-bottom: 32px; 
+            letter-spacing: -2.5px;
+            color: var(--text);
+        }
+        
+        .article-summary {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 48px;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .article-body { 
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            color: #2a2a2a;
+        }
+        
+        .article-body p { 
+            margin-bottom: 32px;
+        }
+        
+        .article-body h2 { 
+            font-family: 'Inter', sans-serif;
+            font-weight: 800; 
+            font-size: 2rem; 
+            margin-top: 56px; 
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        
+        .article-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.2s;
+        }
+        
+        .article-body a:hover {
+            background: var(--accent);
+            color: white;
+            padding: 2px 4px;
+            margin: -2px -4px;
         }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .desktop-nav { display: none; } /* Esconde categorias no mobile */
-            .site-header { padding: 15px 20px; }
-            .article-hero-img { height: 350px; } /* Menor no celular */
+            .desktop-nav { display: none; }
+            .site-header { padding: 16px 24px; }
+            .article-hero-img { height: 400px; }
+            .article-container { padding: 40px 20px; }
+            .sidebar { width: 100%; right: -100%; }
+            .logo { font-size: 1.5rem; }
         }
         
-        /* ESTILOS COMUNS DE ARTIGO */
-        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .article-meta { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
-        .article-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
-        .article-body { font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.8; color: #333; }
-        .article-body p { margin-bottom: 25px; }
-        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 40px; margin-bottom: 15px; }
+        /* LOADING ANIMATION */
+        .loading-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 
     <script>
+        let sidebar = null;
+        let overlay = null;
+        let hamburger = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            sidebar = document.getElementById('sidebar');
+            overlay = document.getElementById('sidebar-overlay');
+            hamburger = document.querySelector('.hamburger');
+            
+            // Scroll header effect
+            let lastScroll = 0;
+            const header = document.querySelector('.site-header');
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+        
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                
+                // Prevent body scroll when menu is open
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        function closeMenu() {
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     </script>
-     
-        
+    
+    
     <style>
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: 0 auto; }
-        .card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .card:hover .thumb { transform: scale(1.03); }
-        .thumb-box { overflow: hidden; border-radius: 4px; margin-bottom: 15px; aspect-ratio: 16/9; }
-        .thumb { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .card-cat { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--accent); font-weight: bold; text-transform: uppercase; }
-        .card-title { font-size: 1.3rem; font-weight: 800; line-height: 1.2; margin-top: 5px; }
+        .home-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
         
-        .hero-section { position: relative; height: 60vh; width: 100%; overflow: hidden; display: flex; align-items: flex-end; color: white; text-decoration: none; margin-bottom: 20px;}
-        .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; z-index: -1; filter: brightness(0.6); transition: transform 0.5s; }
-        .hero-section:hover .hero-bg { transform: scale(1.02); }
-        .hero-content { padding: 40px; max-width: 900px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); width: 100%; }
-        .hero-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .news-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .card { 
+            text-decoration: none; 
+            color: inherit; 
+            display: flex; 
+            flex-direction: column;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .card:hover .thumb {
+            transform: scale(1.05);
+        }
+        
+        .thumb-box { 
+            overflow: hidden; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            aspect-ratio: 16/10;
+            background: var(--surface);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        
+        .thumb { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-cat { 
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem; 
+            color: var(--accent); 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .card-title { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            color: var(--text);
+        }
+
+        /* HERO SECTION PREMIUM */
+        .hero-section { 
+            position: relative; 
+            height: 70vh;
+            min-height: 500px;
+            width: 100%; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: flex-end; 
+            color: white; 
+            text-decoration: none;
+            margin-bottom: 60px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-bg { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            z-index: -1;
+            filter: brightness(0.7);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hero-section:hover .hero-bg {
+            transform: scale(1.03);
+            filter: brightness(0.8);
+        }
+        
+        .hero-content { 
+            padding: 60px; 
+            max-width: 900px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .hero-label {
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .hero-title { 
+            font-size: clamp(2.5rem, 5vw, 5rem); 
+            font-weight: 900; 
+            line-height: 1.05;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section { height: 60vh; border-radius: 0; margin-bottom: 40px; }
+            .hero-content { padding: 40px 24px; }
+            .news-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
+        }
     </style>
     
-    </head>
-    <body>
-        
+</head>
+<body>
+    
     <header class="site-header">
         <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
-        
+
         <nav class="desktop-nav">
-            <a href="#" class="nav-link">Tech</a>
+            <a href="#" class="nav-link">Technology</a>
             <a href="#" class="nav-link">Science</a>
             <a href="#" class="nav-link">Business</a>
-            <a href="#" class="nav-link">Reviews</a>
+            <a href="#" class="nav-link">Culture</a>
         </nav>
 
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMenu()"></div>
+    
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-close" onclick="toggleMenu()">×</div>
-        <a href="index.html" class="sidebar-link">HOME</a>
-        <a href="#" class="sidebar-link">TECHNOLOGY</a>
-        <a href="#" class="sidebar-link">SCIENCE</a>
-        <a href="#" class="sidebar-link">CULTURE</a>
-        <a href="#" class="sidebar-link">ABOUT</a>
+        <div class="sidebar-close" onclick="closeMenu()">×</div>
+        <a href="index.html" class="sidebar-link" onclick="closeMenu()">HOME</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">ABOUT</a>
     </aside>
     
-        
-        <a href="news_d59ebd0885f4382edbbdec86e74de178.html" class="hero-section">
-            <img src="image_d59ebd0885f4382edbbdec86e74de178.jpg" class="hero-bg" onerror="this.src='https://placehold.co/1200x600/111/fff?text=No+Image'">
+
+    <div class="home-container">
+        <a href="news_289e41a1bd094aeaf61c231832c01abe.html" class="hero-section">
+            <img src="image_289e41a1bd094aeaf61c231832c01abe.jpg" class="hero-bg" alt="Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira" loading="eager" onerror="this.src='https://placehold.co/1400x800/0a0a0a/ffffff?text=Nexus+Brief'">
             <div class="hero-content">
-                <span style="color:var(--accent); font-weight:bold; font-family:'JetBrains Mono'">DESTAQUE</span>
-                <h1 class="hero-title">Criador morre em acidente de carro na Califórnia</h1>
+                <span class="hero-label">// DESTAQUE</span>
+                <h1 class="hero-title">Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira</h1>
             </div>
         </a>
 
         <div class="news-grid">
             
-        <a href="news_b53fdb0ac9ff76b99ea6a89ed7c19e7a.html" class="card">
-            <div class="thumb-box"><img src="image_b53fdb0ac9ff76b99ea6a89ed7c19e7a.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">TECH</span>
-            <h3 class="card-title">Samsung Galaxy A37 e Galaxy A57: Especificações de câmera vazadas</h3>
-        </a>
-        
-        <a href="news_39119978863e176638cfa529d35429c9.html" class="card">
-            <div class="thumb-box"><img src="image_39119978863e176638cfa529d35429c9.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">BUSINESS</span>
-            <h3 class="card-title">Como a IA transformou minha produtividade: O bom e o ruim em 2025</h3>
-        </a>
-        
-        <a href="news_0a6f352fbcc6212cb69323ad21ba58d1.html" class="card">
-            <div class="thumb-box"><img src="image_0a6f352fbcc6212cb69323ad21ba58d1.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">TECH</span>
-            <h3 class="card-title">Descubra os tesouros escondidos: 3 aplicativos de viagem gratuitos para explorar uma nova cidade</h3>
-        </a>
-        
-        <a href="news_d967b4dad83626c73b907c4eb8498c8c.html" class="card">
-            <div class="thumb-box"><img src="image_d967b4dad83626c73b907c4eb8498c8c.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">SCIENCE</span>
-            <h3 class="card-title">Como um grande jantar festivo afeta o seu cérebro?</h3>
-        </a>
-        
-        <a href="news_4f7a7ab4dbb7ff6386b9b8dfbd6bc427.html" class="card">
-            <div class="thumb-box"><img src="image_4f7a7ab4dbb7ff6386b9b8dfbd6bc427.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">GAMING</span>
-            <h3 class="card-title">Sonic Racing: CrossWorlds NiGHTS DLC Pack é Lançado de Graça Esta Semana</h3>
-        </a>
-        
-        <a href="news_289e41a1bd094aeaf61c231832c01abe.html" class="card">
-            <div class="thumb-box"><img src="image_289e41a1bd094aeaf61c231832c01abe.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">POLITICS</span>
-            <h3 class="card-title">Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira</h3>
-        </a>
-        
         <a href="news_11b0b148a2b10109ba89adf2fb3ef3fd.html" class="card">
-            <div class="thumb-box"><img src="image_11b0b148a2b10109ba89adf2fb3ef3fd.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <div class="thumb-box">
+                <img src="image_11b0b148a2b10109ba89adf2fb3ef3fd.jpg" class="thumb" alt="S&amp;P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA" loading="lazy" onerror="this.style.display='none'">
+            </div>
             <span class="card-cat">BUSINESS</span>
             <h3 class="card-title">S&P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA</h3>
         </a>
         
         <a href="news_609df19df1621596d925af1c5db93ed3.html" class="card">
-            <div class="thumb-box"><img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <div class="thumb-box">
+                <img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="thumb" alt="Athletics Vão Adquirir Jeff McNeil" loading="lazy" onerror="this.style.display='none'">
+            </div>
             <span class="card-cat">BUSINESS</span>
             <h3 class="card-title">Athletics Vão Adquirir Jeff McNeil</h3>
         </a>
         
         <a href="news_a767e82c112e365c54b2600ba1bcb4eb.html" class="card">
-            <div class="thumb-box"><img src="image_a767e82c112e365c54b2600ba1bcb4eb.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <div class="thumb-box">
+                <img src="image_a767e82c112e365c54b2600ba1bcb4eb.jpg" class="thumb" alt="Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional" loading="lazy" onerror="this.style.display='none'">
+            </div>
             <span class="card-cat">POLITICS</span>
             <h3 class="card-title">Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional</h3>
         </a>
         
         <a href="news_22b3599501bb0aa261db698fd5221e28.html" class="card">
-            <div class="thumb-box"><img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <div class="thumb-box">
+                <img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="thumb" alt="Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos" loading="lazy" onerror="this.style.display='none'">
+            </div>
             <span class="card-cat">POLITICS</span>
             <h3 class="card-title">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h3>
         </a>
         
-        <a href="news_b9f19aeaa596fd3d8a7d583a2f0bd45e.html" class="card">
-            <div class="thumb-box"><img src="image_b9f19aeaa596fd3d8a7d583a2f0bd45e.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">TECH</span>
-            <h3 class="card-title">ChatGPT lança uma revisão de ano semelhante ao Spotify Wrapped</h3>
-        </a>
-        
-        <a href="news_3ff988c3b06f362ca0b63351302294eb.html" class="card">
-            <div class="thumb-box"><img src="image_3ff988c3b06f362ca0b63351302294eb.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">BUSINESS</span>
-            <h3 class="card-title">Larry Ellison Apoia Pessoalmente Oferta da Paramount para a Warner Bros.</h3>
-        </a>
-        
-        <a href="news_04f1ff95fc9261edaf0d09f5d1633a94.html" class="card">
-            <div class="thumb-box"><img src="image_04f1ff95fc9261edaf0d09f5d1633a94.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">POLITICS</span>
-            <h3 class="card-title">Ucrânia e Rússia não terão acordo de paz, afirma Vance</h3>
-        </a>
-        
-        <a href="news_103e24e41f98c370d05366685899482b.html" class="card">
-            <div class="thumb-box"><img src="image_103e24e41f98c370d05366685899482b.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">ENTERTAINMENT</span>
-            <h3 class="card-title">Recebedor dos Steelers, DK Metcalf, tem história com fã envolvido em confronto</h3>
-        </a>
-        
-        <a href="news_76754ba4fe7e6ec5f4b5ebc5ff86cb3e.html" class="card">
-            <div class="thumb-box"><img src="image_76754ba4fe7e6ec5f4b5ebc5ff86cb3e.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">TECH</span>
-            <h3 class="card-title">Demure Dual-Ring Design Smartphones: Uma Nova Abordagem de Design para Celulares</h3>
-        </a>
-        
-        <a href="news_e256ec5e42a1cd2664d78047311c8bde.html" class="card">
-            <div class="thumb-box"><img src="image_e256ec5e42a1cd2664d78047311c8bde.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">BUSINESS</span>
-            <h3 class="card-title">HUAWEI Lança Campanha de Inverno e Aplicativo GameCenter, Oferecendo Recompensas e Experiências Elevadas em sua Ecosistema Expandido</h3>
-        </a>
-        
-        <a href="news_fe03e1d2258c70bfccee08fb6085a2d6.html" class="card">
-            <div class="thumb-box"><img src="image_fe03e1d2258c70bfccee08fb6085a2d6.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">GAMING</span>
-            <h3 class="card-title">Vince Zampella, co-criador de Call of Duty e Respawn Entertainment, faleceu</h3>
-        </a>
-        
-        <a href="news_222604e408d2f5f4a03b98a9f6781d84.html" class="card">
-            <div class="thumb-box"><img src="image_222604e408d2f5f4a03b98a9f6781d84.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">SCIENCE</span>
-            <h3 class="card-title">Aprendizado Holístico Misto em Imunologia Médica para Tradicional Chinesa</h3>
-        </a>
-        
-        <a href="news_4b3324f0dc989a3996b1d3b6a40fabf3.html" class="card">
-            <div class="thumb-box"><img src="image_4b3324f0dc989a3996b1d3b6a40fabf3.jpg" class="thumb" onerror="this.style.display='none'"></div>
-            <span class="card-cat">TECH</span>
-            <h3 class="card-title">iOS 26.3 trará funcionalidade de paragem de fones de ouvido de terceiros</h3>
-        </a>
-        
         </div>
-        
-        <footer style="text-align:center; padding:40px; border-top: 1px solid #eee; margin-top: 40px;">
-            <p>&copy; 2025 Nexus Brief • AI Curated News</p>
-        </footer>
-    </body>
-    </html>
-    
+    </div>
+
+    <footer style="text-align:center; padding:80px 24px 40px; border-top: 1px solid var(--border); margin-top: 80px;">
+        <p style="font-size:0.875rem; color:#999; margin-bottom:12px;">&copy; 2025 Nexus Brief • Powered by AI</p>
+        <p style="font-size:0.75rem; color:#ccc;">Curadoria inteligente de notícias</p>
+    </footer>
+</body>
+</html>

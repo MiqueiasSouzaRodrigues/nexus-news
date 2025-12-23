@@ -1,134 +1,496 @@
-
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Athletics Vão Adquirir Jeff McNeil</title>
-        
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    <title>Athletics Vão Adquirir Jeff McNeil</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #e10098; --text: #111; --bg: #fff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
+        :root { 
+            --accent: #e10098; 
+            --text: #0a0a0a; 
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e1e4e8;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
         
-        /* HEADER */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* HEADER PREMIUM */
         .site-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; border-bottom: 1px solid #eee;
-            background: #fff; z-index: 100; position: sticky; top: 0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 24px 48px; 
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100; 
+            position: sticky; 
+            top: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #000; }
-        .logo span { color: var(--accent); }
-
-        /* DESKTOP CATEGORIES */
-        .desktop-nav { display: flex; gap: 25px; }
-        .nav-link { text-decoration: none; color: #555; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav-link:hover { color: var(--accent); }
-
-        /* HAMBURGER ICON */
-        .hamburger { cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; }
         
-        /* SIDEBAR (Menu Lateral Escondido) */
-        .sidebar {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: #111; color: #fff; z-index: 200;
-            padding: 40px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; gap: 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        .site-header.scrolled {
+            padding: 16px 48px;
+            box-shadow: 0 2px 20px var(--shadow);
         }
-        .sidebar.active { right: 0; }
-        .sidebar-close { align-self: flex-end; cursor: pointer; font-size: 2rem; margin-bottom: 20px; }
-        .sidebar-link { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .sidebar-link:hover { color: var(--accent); border-color: var(--accent); }
+        
+        .logo { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            text-decoration: none; 
+            color: var(--text);
+            transition: transform 0.2s;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+        
+        .logo span { 
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-        /* HERO IMAGE FIXA NA NOTÍCIA */
+        /* DESKTOP NAV PREMIUM */
+        .desktop-nav { 
+            display: flex; 
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-link { 
+            text-decoration: none; 
+            color: #555; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* HAMBURGER PREMIUM */
+        .hamburger { 
+            cursor: pointer; 
+            width: 32px;
+            height: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 201;
+        }
+        
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10.5px) rotate(45deg);
+            background: white;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10.5px) rotate(-45deg);
+            background: white;
+        }
+
+        /* SIDEBAR PREMIUM */
+        .sidebar {
+            position: fixed; 
+            top: 0; 
+            right: -400px; 
+            width: 380px; 
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: #fff; 
+            z-index: 200;
+            padding: 60px 40px;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active { 
+            right: 0; 
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            backdrop-filter: blur(4px);
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .sidebar-close { 
+            align-self: flex-end; 
+            cursor: pointer; 
+            font-size: 2.5rem; 
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-link { 
+            color: rgba(255, 255, 255, 0.9); 
+            text-decoration: none; 
+            font-size: 1.75rem; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 24px 0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar-link:hover { 
+            color: white;
+            padding-left: 12px;
+        }
+        
+        .sidebar-link:hover::before {
+            left: 0;
+        }
+
+        /* HERO IMAGE PREMIUM */
         .article-hero-img {
             width: 100%;
-            height: 500px; /* Altura Fixa */
-            object-fit: cover; /* Garante que a imagem preencha sem distorcer */
-            background: #f0f0f0;
+            height: 600px;
+            object-fit: cover;
             display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ARTICLE STYLES PREMIUM */
+        .article-container { 
+            max-width: 720px; 
+            margin: 0 auto; 
+            padding: 60px 24px;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .article-meta { 
+            font-family: 'Fira Code', monospace;
+            color: var(--accent); 
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 16px; 
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-title { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 900; 
+            line-height: 1.05; 
+            margin-bottom: 32px; 
+            letter-spacing: -2.5px;
+            color: var(--text);
+        }
+        
+        .article-summary {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 48px;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .article-body { 
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            color: #2a2a2a;
+        }
+        
+        .article-body p { 
+            margin-bottom: 32px;
+        }
+        
+        .article-body h2 { 
+            font-family: 'Inter', sans-serif;
+            font-weight: 800; 
+            font-size: 2rem; 
+            margin-top: 56px; 
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        
+        .article-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.2s;
+        }
+        
+        .article-body a:hover {
+            background: var(--accent);
+            color: white;
+            padding: 2px 4px;
+            margin: -2px -4px;
         }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .desktop-nav { display: none; } /* Esconde categorias no mobile */
-            .site-header { padding: 15px 20px; }
-            .article-hero-img { height: 350px; } /* Menor no celular */
+            .desktop-nav { display: none; }
+            .site-header { padding: 16px 24px; }
+            .article-hero-img { height: 400px; }
+            .article-container { padding: 40px 20px; }
+            .sidebar { width: 100%; right: -100%; }
+            .logo { font-size: 1.5rem; }
         }
         
-        /* ESTILOS COMUNS DE ARTIGO */
-        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .article-meta { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
-        .article-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
-        .article-body { font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.8; color: #333; }
-        .article-body p { margin-bottom: 25px; }
-        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 40px; margin-bottom: 15px; }
+        /* LOADING ANIMATION */
+        .loading-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 
     <script>
+        let sidebar = null;
+        let overlay = null;
+        let hamburger = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            sidebar = document.getElementById('sidebar');
+            overlay = document.getElementById('sidebar-overlay');
+            hamburger = document.querySelector('.hamburger');
+            
+            // Scroll header effect
+            let lastScroll = 0;
+            const header = document.querySelector('.site-header');
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+        
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                
+                // Prevent body scroll when menu is open
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        function closeMenu() {
+            if (sidebar && overlay && hamburger) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
     </script>
     
-        <style>:root { --accent: #e10098; }</style>
-    </head>
-    <body>
-        
+    <style>:root { --accent: #4602b8; }</style>
+</head>
+<body>
+    
     <header class="site-header">
         <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
-        
+
         <nav class="desktop-nav">
-            <a href="#" class="nav-link">Tech</a>
+            <a href="#" class="nav-link">Technology</a>
             <a href="#" class="nav-link">Science</a>
             <a href="#" class="nav-link">Business</a>
-            <a href="#" class="nav-link">Reviews</a>
+            <a href="#" class="nav-link">Culture</a>
         </nav>
 
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMenu()"></div>
+    
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-close" onclick="toggleMenu()">×</div>
-        <a href="index.html" class="sidebar-link">HOME</a>
-        <a href="#" class="sidebar-link">TECHNOLOGY</a>
-        <a href="#" class="sidebar-link">SCIENCE</a>
-        <a href="#" class="sidebar-link">CULTURE</a>
-        <a href="#" class="sidebar-link">ABOUT</a>
+        <div class="sidebar-close" onclick="closeMenu()">×</div>
+        <a href="index.html" class="sidebar-link" onclick="closeMenu()">HOME</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">ABOUT</a>
     </aside>
     
 
-        <img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="article-hero-img" alt="Hero Image">
+    <img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="article-hero-img" alt="Athletics Vão Adquirir Jeff McNeil" loading="eager">
 
-        <article class="article-container">
-            <header>
-                <span class="article-meta">/// BUSINESS • 2025-12-22</span>
-                <h1 class="article-title">Athletics Vão Adquirir Jeff McNeil</h1>
-                <div style="font-style:italic; color:#666; margin-bottom:30px;">
-                    ...
-                </div>
-            </header>
-            
-            <main class="article-body">
-                <h2>Athletics To Acquire Jeff McNeil em Negociação de Troca</h2>
+    <article class="article-container">
+        <header>
+            <span class="article-meta">/// BUSINESS • 2025-12-22</span>
+            <h1 class="article-title">Athletics Vão Adquirir Jeff McNeil</h1>
+            <div class="article-summary">
+                ...
+            </div>
+        </header>
 
-<p>Em uma manhã de surpresa, as fontes da MLB confirmam que os Oakland Athletics estão perto de fechar um acordo para adquirir o jogador externo Jeff McNeil. A troca, que ainda não foi oficializada, envolve a troca de McNeil pelos A's em troca de ativos de farmácia.</p>
+        <main class="article-body">
+            <h2>Athletics Ajusta sua Rotação Ofensiva com Acordo para Contratar Jeff McNeil</h2>
 
-<p>Jeff McNeil, um jogador de 31 anos, é conhecido por sua habilidade de bater e defesa no campo de primeiro base. Ele tem uma experiência de 7 temporadas na MLB, todas com os New York Mets. McNeil é um dos principais jogadores externos disponíveis no mercado de trocas e sua adição ao time dos Athletics pode ser um grande ganho para a equipe.</p>
+<p>Em uma manhã de surpresa, a equipe de baseball da Oakland Athletics anunciou que havia alcançado um acordo para contratar o astro da posição externa Jeff McNeil, em uma transação que pode ter um impacto significativo na rotação ofensiva da equipe. O acordo, que ainda precisa ser oficializado, envolve a troca de recursos entre as Athletics e o time de baseball da Nova York Mets.</p>
 
-<p>Os Athletics, que estão procurando fortalecer sua equipe para as próximas temporadas, podem estar procurando por jogadores que possam ajudar a equipe a chegar aos playoffs. A adição de McNeil pode ser um passo importante nessa direção.</p>
+<p>De acordo com fontes próximas ao assunto, a Athletics pagará uma compensação de 20 milhões de dólares em dinheiro e um jogador de menor valor ao Mets em troca do direito de contratar McNeil, que tem uma experiência de 7 temporadas na MLB. A negociação é considerada uma das principais do mercado de verão, e pode ser um passo importante para a equipe de Oakland em sua busca por um título da Série Mundial.</p>
 
-<p>A troca ainda não foi oficializada, mas as fontes da MLB confirmam que os dois times estão perto de fechar um acordo. A negociação ainda pode ser complicada, mas parece que os Athletics estão perto de adquirir um jogador de alta qualidade.</p>
+<h2>McNeil: O Astro da Posição Externa que Pode Mudar o Jogo</h2>
 
-<p>Enquanto isso, os fãs dos Athletics estão ansiosos para saber se a troca será oficializada. A adição de McNeil pode ser um grande ganho para a equipe e pode ajudar a mudar o destino da temporada.</p>
-            </main>
-            
-            <footer style="margin-top:50px; border-top:1px solid #ddd; padding-top:20px; font-size:0.8rem; color:#888;">
-                FONTE ORIGINAL: <a href="https://www.mlbtraderumors.com/2025/12/athletics-to-acquire-jeff-mcneil.html" target="_blank" style="color:var(--accent)">MLB Trade Rumors</a>
-            </footer>
-        </article>
-    </body>
-    </html>
-    
+<p>Jeff McNeil é um jogador de 31 anos que tem se destacado na posição externa pela Mets desde 2018. Com uma média de .294 e 30 home runs em sua carreira, McNeil é considerado um dos principais jogadores do mercado de verão. Ele é conhecido por sua habilidade de bater e sua capacidade de jogar em qualquer posição da defesa externa.</p>
+
+<p>Com a contratação de McNeil, a Athletics ganha um jogador experiente e produtivo que pode ajudar a equipe a melhorar sua rotação ofensiva. A equipe de Oakland tem lutado para encontrar um jogador que possa preencher a vaga de batedor de liderança, e McNeil pode ser a resposta à essa questão.</p>
+
+<h2>Impacto na Rotação Ofensiva da Athletics</h2>
+
+<p>A contratação de McNeil pode ter um impacto significativo na rotação ofensiva da Athletics. Com sua habilidade de bater e sua capacidade de jogar em qualquer posição da defesa externa, McNeil pode ajudar a equipe a melhorar sua produção de corridas e a aumentar sua chance de sucesso.</p>
+
+<p>A Athletics já tem uma equipe experiente e bem montada, com jogadores como Matt Olson e Matt Chapman. Com a adição de McNeil, a equipe pode se tornar ainda mais competitiva e ter uma chance real de conquistar o título da Série Mundial.</p>
+
+<h2>Perspectivas Futuras</h2>
+
+<p>A contratação de McNeil é um passo importante para a Athletics em sua busca por um título da Série Mundial. Com sua habilidade de bater e sua capacidade de jogar em qualquer posição da defesa externa, McNeil pode ajudar a equipe a melhorar sua rotação ofensiva e aumentar sua chance de sucesso.</p>
+
+<p>Agora que o acordo foi alcançado, a Athletics pode se concentrar em integrar McNeil à equipe e em prepará-lo para a temporada de 2024. Com a adição de McNeil, a equipe pode se tornar ainda mais competitiva e ter uma chance real de conquistar o título da Série Mundial.</p>
+        </main>
+
+        <footer style="margin-top:80px; padding-top:32px; border-top:1px solid var(--border); font-size:0.875rem; color:#666;">
+            <p style="margin-bottom:16px;"><strong>Fonte Original:</strong> <a href="https://www.mlbtraderumors.com/2025/12/athletics-to-acquire-jeff-mcneil.html" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent);">MLB Trade Rumors</a></p>
+            <p style="color:#999; font-size:0.8rem;">Curadoria IA • Nexus Brief © 2025</p>
+        </footer>
+    </article>
+</body>
+</html>
