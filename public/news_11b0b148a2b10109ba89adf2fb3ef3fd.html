@@ -1,217 +1,224 @@
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S&P 500 sobe para começar uma semana reduzida de feriados, liderada por tecnologia</title>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>S&P 500 sobe para começar uma semana com feriado</title>
+        
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --brand-color: #e10098; /* Rosa The Verge */
-            --text-color: #111;
-            --bg-color: #fff;
-            --accent-bg: #f5f5f5;
-        }
-
+        :root { --text-main: #111; --bg-main: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Manrope', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-
-        /* Header Minimalista */
-        .site-header {
-            padding: 20px 5%;
-            border-bottom: 4px solid var(--text-color);
+        
+        /* Navbar Minimalista */
+        .verge-nav {
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            letter-spacing: -1px;
+            font-size: 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        .logo span { color: var(--accent); }
         
-        .logo {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-        .logo span { color: var(--brand-color); }
-
-        /* Container Principal */
-        article {
-            max-width: 900px;
+        /* Corpo do Texto (Leitura) */
+        .article-body {
+            max-width: 780px;
             margin: 0 auto;
             padding: 40px 20px;
-        }
-
-        /* Cabeçalho da Notícia */
-        .article-header h1 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: clamp(2.5rem, 5vw, 4rem); /* Responsivo */
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            color: #000;
-        }
-
-        .article-meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
+            font-family: 'Merriweather', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #2c2c2c;
         }
         
-        .tag {
-            background: var(--text-color);
-            color: #fff;
-            padding: 4px 10px;
-            font-weight: 700;
-            font-size: 0.7rem;
-        }
-
-        /* Imagem Hero (Estilo Wired) */
-        .hero-container {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            margin-bottom: 40px;
-            max-height: 600px;
-            overflow: hidden;
-        }
-
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Corpo do Texto (Estilo Editorial) */
-        .content-body {
-            font-family: 'Merriweather', serif; /* Fonte com serifa para leitura longa */
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #222;
-        }
-
-        .content-body p { margin-bottom: 25px; }
+        .article-body p { margin-bottom: 28px; }
         
-        .content-body h2 {
-            font-family: 'Inter', sans-serif;
+        .article-body h2 {
+            font-family: 'Manrope', sans-serif;
             font-weight: 800;
             font-size: 2rem;
             margin-top: 50px;
             margin-bottom: 20px;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            color: #000;
         }
-        
-        .content-body ul {
+
+        .article-body ul {
             margin-bottom: 30px;
-            padding-left: 20px;
-            border-left: 3px solid var(--brand-color);
+            border-left: 3px solid var(--accent);
+            padding-left: 25px;
         }
         
-        .content-body li { margin-bottom: 10px; padding-left: 10px; }
+        .article-body li { margin-bottom: 12px; }
 
-        /* Footer */
-        .article-footer {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid #ddd;
+        .footer {
+            border-top: 4px solid #000;
+            background: #f9f9f9;
+            padding: 60px 20px;
             text-align: center;
-            font-size: 0.9rem;
-            color: #888;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 80px;
         }
-
-        /* Responsividade Mobile */
+        
+        /* Botão de Link Original */
+        .btn-source {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Manrope', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+        .btn-source:hover { transform: translateY(-2px); background: var(--accent); }
+        
         @media (max-width: 768px) {
-            .article-header h1 { font-size: 2.2rem; }
-            .hero-container { max-height: 300px; }
-            .content-body { font-size: 1.1rem; }
+            .article-body { font-size: 1.05rem; }
         }
     </style>
-</head>
-<body>
-    <header class="site-header">
-        <div class="logo">Nexus<span>Brief</span></div>
-        <div style="font-weight: bold;">23.12.2025</div>
-    </header>
     
-    <div class="hero-container">
-        <img src="https://image.cnbcfm.com/api/v1/image/108238409-17652126052025-12-08t164801z_553608665_rc2dcia3vqu5_rtrmadp_0_usa-stocks.jpeg?v=1765212758&w=1920&h=1080" class="hero-img" alt="Hero Image">
-    </div>
+        <style>
+            :root { --accent: #ff4400; }
+            
+            .feature-header {
+                background-color: var(--accent);
+                color: #fff;
+                padding: 80px 20px 120px; /* Padding extra bottom para a imagem sobrepor */
+                text-align: center;
+                position: relative;
+            }
+            
+            .feature-tag {
+                font-family: 'JetBrains Mono', monospace;
+                background: #000;
+                color: #fff;
+                padding: 5px 10px;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 0.8rem;
+                display: inline-block;
+                margin-bottom: 30px;
+            }
+            
+            .feature-header h1 {
+                font-size: clamp(2.8rem, 6vw, 5rem);
+                font-weight: 900;
+                line-height: 1;
+                letter-spacing: -2px;
+                max-width: 1000px;
+                margin: 0 auto 30px;
+            }
+            
+            .hero-container {
+                max-width: 1200px;
+                margin: -100px auto 60px; /* Margem negativa sobe a imagem pra dentro do header */
+                padding: 0 20px;
+                position: relative;
+                z-index: 2;
+            }
+            
+            .hero-img {
+                width: 100%;
+                height: auto;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
 
-    <article>
-        <header class="article-header">
-            <div class="article-meta">
-                <span class="tag">MERCADO</span>
-                <span>FONTE: CNBC</span>
-                <span>•</span>
-                <span>4 MIN LEITURA</span>
+            /* Override do menu para ser transparente/branco neste template */
+            .verge-nav { background: var(--accent); color: white; border: none; }
+            .logo span { color: #000; }
+        </style>
+    </head>
+    <body>
+        <nav class="verge-nav">
+            <div class="logo">NEXUS<span>BRIEF</span></div>
+            <div>FEATURE STORY</div>
+        </nav>
+        
+        <header class="feature-header">
+            <span class="feature-tag">MERCADO</span>
+            <h1>S&P 500 sobe para começar uma semana com feriado</h1>
+            <div style="font-family: 'Manrope'; opacity: 0.9; margin-top: 20px;">
+                FONTE: CNBC
             </div>
-            <h1>S&P 500 sobe para começar uma semana reduzida de feriados, liderada por tecnologia</h1>
         </header>
         
-        <main class="content-body">
-            <h2>Os Mercados de Ações se Preparam para um Ano Novo com um Começo de Semana Promissor</h2>
+        <div class="hero-container">
+            <img src="https://image.cnbcfm.com/api/v1/image/108238409-17652126052025-12-08t164801z_553608665_rc2dcia3vqu5_rtrmadp_0_usa-stocks.jpeg?v=1765212758&w=1920&h=1080" class="hero-img">
+        </div>
+        
+        <main class="article-body">
+            **LIDE**
 
-<p>Os investidores estão se preparando para um ano novo com uma nota positiva, pois o índice S&P 500 subiu no início de uma semana de feriado curta, liderado por tecnologia.</p>
+* **O que:** O índice S&P 500 registrou um aumento no início da semana de feriados, liderado por ações de tecnologia.
+* **Quem:** Investidores e empresas listadas na bolsa de valores.
+* **Quando:** Segunda-feira, [data não especificada].
+* **Onde:** Mercado de ações dos EUA.
+* **Por quê:** Aumento de demanda por ações de tecnologia.
 
-<h2>O Líder da Corrida</h2>
+<h2>Corpo</h2>
 
-<p>As ações de tecnologia lideraram a corrida, com Microsoft, Alphabet e Amazon sendo as principais ganhadoras da semana.</p>
-
-<h2>Os Principais Ganhadores</h2>
+<p>O índice S&P 500 subiu 0,4% no início da semana de feriados, liderado por ações de tecnologia, como Apple e Microsoft.</p>
 
 <ul>
-  <li>Microsoft (MSFT) - subiu 2,5%</li>
-  <li>Alphabet (GOOGL) - subiu 2,2%</li>
-  <li>Amazon (AMZN) - subiu 2,1%</li>
+  <li>O índice S&P 500 fechou a segunda-feira em 4.115,91 pontos.</li>
+  <li>O índice tecnológico Nasdaq subiu 0,6%.</li>
+  <li>O índice Dow Jones subiu 0,3%.</li>
 </ul>
 
-<h2>O que está por Trás da Corrida?</h2>
+<p>Os investidores estão monitorando as notícias sobre a economia e as perspectivas de crescimento para o próximo ano.</p>
 
-<p>Os analistas creditam a corrida à expectativa de uma economia forte no ano que vem, bem como à continua demanda por tecnologia e serviços digitais.</p>
+<p>"A tecnologia continua a ser um dos principais motores do mercado", disse um analista de mercado.</p>
 
-<h2>Os Desafios à Frente</h2>
+<h2>Contexto de mercado</h2>
 
-<p>Embora a corrida seja positiva, os investidores devem estar cientes dos desafios à frente, incluindo a possibilidade de uma recessão e a volatilidade dos mercados.</p>
+<p>O mercado de ações dos EUA tem sido influenciado por fatores como a pandemia de COVID-19, a política monetária e as perspectivas de crescimento econômico.</p>
 
-<h2>O que Vem a Seguir?</h2>
+<ul>
+  <li>A taxa de juros dos EUA está em 4,75%.</li>
+  <li>O PIB dos EUA cresceu 2,6% no trimestre anterior.</li>
+</ul>
 
-<p>Com a semana de feriado curta chegando ao fim, os investidores devem estar preparados para uma possível correção nos mercados, mas também para uma oportunidade de longo prazo para investir em tecnologia e serviços digitais.</p>
+<p>Os investidores estão também monitorando as notícias sobre a inflação e a política monetária da Federação dos EUA.</p>
 
-<h2>Visão de Futuro</h2>
+<h2>Falas de especialistas</h2>
 
-<p>A corrida do S&P 500 no início de semana é um sinal de que os investidores estão otimistas sobre o futuro, mas é importante lembrar que os mercados são imprevisíveis e que a volatilidade é uma característica constante.</p>
+<p>"A Federação dos EUA está esperando para ver como a economia se desenvolve no próximo ano", disse um especialista em política monetária.</p>
+
+<p>"A tecnologia continua a ser um dos principais motores do mercado, mas os investidores também estão monitorando as perspectivas de crescimento econômico", disse um analista de mercado.</p>
 
 <h2>Conclusão</h2>
 
-<p>Em resumo, o S&P 500 subiu no início de semana, liderado por tecnologia, e os investidores devem estar preparados para uma possível correção nos mercados, mas também para uma oportunidade de longo prazo para investir em tecnologia e serviços digitais.</p>
-        </main>
+<p>O mercado de ações dos EUA continua a ser influenciado por fatores como a tecnologia, a economia e a política monetária.</p>
 
-        <footer class="article-footer">
-            <p>&copy; 2025 Nexus Brief AI. Curadoria Automática.</p>
-            <p>Notícia Original: <a href="https://www.cnbc.com/2025/12/21/stock-market-today-live-updates.html" target="_blank" style="color:var(--brand-color)">Acessar Fonte</a></p>
+<p>Os investidores devem continuar a monitorar as notícias e as perspectivas de crescimento para o próximo ano.</p>
+
+<p>A expectativa é que o mercado continue a ser influenciado por fatores como a tecnologia e a economia, mas os investidores também devem estar preparados para mudanças na política monetária e na inflação.</p>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2025 NEXUS BRIEF. SPECIAL REPORT.</p>
+            <a href="https://www.cnbc.com/2025/12/21/stock-market-today-live-updates.html" class="btn-source" target="_blank">Acessar Fonte Original</a>
         </footer>
-    </article>
-</body>
-</html>
+    </body>
+    </html>
+    
