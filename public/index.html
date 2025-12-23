@@ -4,184 +4,247 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nexus Brief | Daily News</title>
+        <title>Nexus Brief</title>
         
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        :root { --text-main: #111; --bg-main: #fff; }
+        :root { --accent: #e10098; --text: #111; --bg: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        .verge-nav { padding: 20px 40px; border-bottom: 1px solid rgba(0,0,0,0.1); font-weight: 800; letter-spacing: -1px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+        body { font-family: 'Manrope', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
+        
+        /* HEADER */
+        .site-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; border-bottom: 1px solid #eee;
+            background: #fff; z-index: 100; position: sticky; top: 0;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #000; }
         .logo span { color: var(--accent); }
-        .article-body { max-width: 780px; margin: 0 auto; padding: 40px 20px; font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.9; color: #2c2c2c; }
-        .article-body p { margin-bottom: 28px; }
-        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 50px; margin-bottom: 20px; letter-spacing: -1px; color: #000; }
-        .article-body ul { margin-bottom: 30px; border-left: 3px solid var(--accent); padding-left: 25px; }
-        .article-body li { margin-bottom: 12px; }
-        .footer { border-top: 4px solid #000; background: #f9f9f9; padding: 60px 20px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #666; margin-top: 80px; }
-        .btn-source { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #000; color: #fff; text-decoration: none; font-weight: bold; font-family: 'Manrope', sans-serif; text-transform: uppercase; font-size: 0.8rem; transition: transform 0.2s; }
-        .btn-source:hover { transform: translateY(-2px); background: var(--accent); }
-        @media (max-width: 768px) { .article-body { font-size: 1.05rem; } .header-container h1, .feature-header h1 { font-size: 2.5rem !important; } }
+
+        /* DESKTOP CATEGORIES */
+        .desktop-nav { display: flex; gap: 25px; }
+        .nav-link { text-decoration: none; color: #555; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
+        .nav-link:hover { color: var(--accent); }
+
+        /* HAMBURGER ICON */
+        .hamburger { cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; }
+        
+        /* SIDEBAR (Menu Lateral Escondido) */
+        .sidebar {
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
+            background: #111; color: #fff; z-index: 200;
+            padding: 40px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; gap: 20px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        }
+        .sidebar.active { right: 0; }
+        .sidebar-close { align-self: flex-end; cursor: pointer; font-size: 2rem; margin-bottom: 20px; }
+        .sidebar-link { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .sidebar-link:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* HERO IMAGE FIXA NA NOTÍCIA */
+        .article-hero-img {
+            width: 100%;
+            height: 500px; /* Altura Fixa */
+            object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+            background: #f0f0f0;
+            display: block;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; } /* Esconde categorias no mobile */
+            .site-header { padding: 15px 20px; }
+            .article-hero-img { height: 350px; } /* Menor no celular */
+        }
+        
+        /* ESTILOS COMUNS DE ARTIGO */
+        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article-meta { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
+        .article-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+        .article-body { font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.8; color: #333; }
+        .article-body p { margin-bottom: 25px; }
+        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 40px; margin-bottom: 15px; }
     </style>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+    </script>
      
         
     <style>
-        :root { --accent: #e10098; --bg: #fdfdfd; --text: #111; }
-        body { background: var(--bg); font-family: 'Manrope', sans-serif; color: var(--text); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .portal-header { padding: 40px 0; border-bottom: 2px solid #000; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
-        .portal-title { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; line-height: 1; }
-        .portal-title span { color: var(--accent); }
-        .portal-date { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #666; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .card { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+        .card:hover .thumb { transform: scale(1.03); }
+        .thumb-box { overflow: hidden; border-radius: 4px; margin-bottom: 15px; aspect-ratio: 16/9; }
+        .thumb { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .card-cat { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--accent); font-weight: bold; text-transform: uppercase; }
+        .card-title { font-size: 1.3rem; font-weight: 800; line-height: 1.2; margin-top: 5px; }
         
-        .card-hero { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; border-bottom: 1px solid #ddd; padding-bottom: 40px; text-decoration: none; color: inherit; }
-        @media (max-width: 768px) { .card-hero { grid-template-columns: 1fr; } }
-
-        .news-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.2s; }
-        .news-card:hover { opacity: 0.8; }
-        .card-img-container { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #eee; margin-bottom: 15px; border-radius: 4px; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .news-card:hover .card-img { transform: scale(1.05); }
-        .card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
-        .card-title { font-size: 1.4rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 10px; }
-        .card-summary { font-family: 'Merriweather', serif; font-size: 0.95rem; color: #555; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .hero-info { display: flex; flex-direction: column; justify-content: center; }
-        .hero-title { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
-        .hero-summary { font-size: 1.2rem; color: #444; }
+        .hero-section { position: relative; height: 60vh; width: 100%; overflow: hidden; display: flex; align-items: flex-end; color: white; text-decoration: none; margin-bottom: 20px;}
+        .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; z-index: -1; filter: brightness(0.6); transition: transform 0.5s; }
+        .hero-section:hover .hero-bg { transform: scale(1.02); }
+        .hero-content { padding: 40px; max-width: 900px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); width: 100%; }
+        .hero-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
     </style>
     
     </head>
     <body>
-        <div class="container">
-            <header class="portal-header">
-                <div class="portal-title">NEXUS<span>BRIEF</span></div>
-                <div class="portal-date">TUESDAY, 23 DE DECEMBER</div>
-            </header>
-            
-            <main>
-                
-    <a href="news_e067e25664b9d35e846f6f53be50bd28.html" class="card-hero">
-        <div class="card-img-container" style="aspect-ratio: 4/3;">
-            <img src="card_e067e25664b9d35e846f6f53be50bd28.jpg" class="card-img" alt="Destaque" onerror="this.src='None'">
-        </div>
-        <div class="hero-info">
-            <span class="card-meta">/// ENTERTAINMENT • t2ONLINE</span>
-            <h1 class="hero-title">Vince Zampella, Criador de Call of Duty, Morre em Acidente de Carro em Los Angeles</h1>
-            <p class="hero-summary">...</p>
-        </div>
-    </a>
+        
+    <header class="site-header">
+        <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
+        
+        <nav class="desktop-nav">
+            <a href="#" class="nav-link">Tech</a>
+            <a href="#" class="nav-link">Science</a>
+            <a href="#" class="nav-link">Business</a>
+            <a href="#" class="nav-link">Reviews</a>
+        </nav>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-close" onclick="toggleMenu()">×</div>
+        <a href="index.html" class="sidebar-link">HOME</a>
+        <a href="#" class="sidebar-link">TECHNOLOGY</a>
+        <a href="#" class="sidebar-link">SCIENCE</a>
+        <a href="#" class="sidebar-link">CULTURE</a>
+        <a href="#" class="sidebar-link">ABOUT</a>
+    </aside>
     
-                <div class="news-grid">
-                    
-        <a href="news_db889b208579dfe2aba10cc97d56fc39.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_db889b208579dfe2aba10cc97d56fc39.jpg" class="card-img" alt="Notícia" onerror="this.src='https://fightingirish.com/amt-media/461608'">
-            </div>
-            <span class="card-meta">SPORTS</span>
-            <h3 class="card-title">Notre Dame Anuncia Série com BYU</h3>
-            <p class="card-summary">...</p>
-        </a>
         
-        <a href="news_85828e8ef715836310a8c2adda9e8235.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_85828e8ef715836310a8c2adda9e8235.jpg" class="card-img" alt="Notícia" onerror="this.src='https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2025-12/251222-Humboldt-rs-169f6a.jpg'">
+        <a href="news_d59ebd0885f4382edbbdec86e74de178.html" class="hero-section">
+            <img src="image_d59ebd0885f4382edbbdec86e74de178.jpg" class="hero-bg" onerror="this.src='https://placehold.co/1200x600/111/fff?text=No+Image'">
+            <div class="hero-content">
+                <span style="color:var(--accent); font-weight:bold; font-family:'JetBrains Mono'">DESTAQUE</span>
+                <h1 class="hero-title">Criador morre em acidente de carro na Califórnia</h1>
             </div>
-            <span class="card-meta">POLITICS</span>
-            <h3 class="card-title">Chuva intensa e inundações ameaçam partes do estado da Califórnia durante as festas de fim de ano</h3>
-            <p class="card-summary">...</p>
         </a>
-        
-        <a href="news_b34498e848cbc8b1a33b635160d87baa.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_b34498e848cbc8b1a33b635160d87baa.jpg" class="card-img" alt="Notícia" onerror="this.src='https://image.cnbcfm.com/api/v1/image/108202079-1758548979151-gettyimages-162927003-7dfea741-a11b-46bb-9c84-a656d6b6c5df.jpeg?v=1766154459&w=1920&h=1080'">
-            </div>
-            <span class="card-meta">SCIENCE</span>
-            <h3 class="card-title">Ritual matinal que aumenta a dopamina para começar o dia com bom humor</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_f41ffb889da3813f9a3f60125f9b6791.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_f41ffb889da3813f9a3f60125f9b6791.jpg" class="card-img" alt="Notícia" onerror="this.src='https://ichef.bbci.co.uk/news/1024/branded_news/2ced/live/65224300-df4f-11f0-aae2-2191c0e48a3b.jpg'">
-            </div>
-            <span class="card-meta">ENTERTAINMENT</span>
-            <h3 class="card-title">Falece o cantor Chris Rea, conhecido por 'Driving Home for Christmas'</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_4c7ce7d4e6dbd15c11ec2ac876df24fd.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_4c7ce7d4e6dbd15c11ec2ac876df24fd.jpg" class="card-img" alt="Notícia" onerror="this.src='https://image.cnbcfm.com/api/v1/image/108244722-1766417176896-gettyimages-2227111307-US-NEWS-TRUMP-WIND-POWER-VP.jpeg?v=1766417215&w=1920&h=1080'">
-            </div>
-            <span class="card-meta">BUSINESS</span>
-            <h3 class="card-title">Trump suspende projetos de vento, incluindo o Coastal Virginia Offshore Wind, ações da Dominion caem 4%</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_9ee71704684277f2817c28532045ba1c.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_9ee71704684277f2817c28532045ba1c.jpg" class="card-img" alt="Notícia" onerror="this.src='https://static.clubs.nfl.com/image/upload/t_editorial_landscape_12_desktop/ravens/nouz9q2nslrxbkohaixn'">
-            </div>
-            <span class="card-meta">SPORTS</span>
-            <h3 class="card-title">Patriots Superam Ravens: Reações dos Jogadores</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_c85c05cb08f72b1384c6254b552e7181.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_c85c05cb08f72b1384c6254b552e7181.jpg" class="card-img" alt="Notícia" onerror="this.src='None'">
-            </div>
-            <span class="card-meta">TECH</span>
-            <h3 class="card-title">Garmin Vivoactive 5 em Condição Ótima</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_f505a04eb292a02d7e11ff2f7d7fa552.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_f505a04eb292a02d7e11ff2f7d7fa552.jpg" class="card-img" alt="Notícia" onerror="this.src='None'">
-            </div>
-            <span class="card-meta">TECH</span>
-            <h3 class="card-title">Garmin Vivoactive 5 em Condição Ótima</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_bb47e70a9e6fc3cadc857065d4bd1f66.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_bb47e70a9e6fc3cadc857065d4bd1f66.jpg" class="card-img" alt="Notícia" onerror="this.src='None'">
-            </div>
-            <span class="card-meta">SCIENCE</span>
-            <h3 class="card-title">O Kimchi pode ajudar a melhorar o sistema imunológico e a saúde do intestino</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_462c91cb894aac5e9345d7f09a89a7d6.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_462c91cb894aac5e9345d7f09a89a7d6.jpg" class="card-img" alt="Notícia" onerror="this.src='None'">
-            </div>
-            <span class="card-meta">TECH</span>
-            <h3 class="card-title">Galaxy A37 e A57 recebem upgrade significativo em suas câmeras</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-        <a href="news_245c54fd92dabcba3a3b8be8e66b4703.html" class="news-card">
-            <div class="card-img-container">
-                <img src="card_245c54fd92dabcba3a3b8be8e66b4703.jpg" class="card-img" alt="Notícia" onerror="this.src='None'">
-            </div>
-            <span class="card-meta">TECH</span>
-            <h3 class="card-title">OPPO Find X9 Pro: Capturando a beleza do Egito com 4K 120fps Log</h3>
-            <p class="card-summary">...</p>
-        </a>
-        
-                </div>
-            </main>
+
+        <div class="news-grid">
             
-            <footer class="footer" style="margin-top:60px; border-top:1px solid #ddd; padding-top:40px;">
-                <p>NEXUS BRIEF AI CURATION • 2025</p>
-            </footer>
+        <a href="news_b53fdb0ac9ff76b99ea6a89ed7c19e7a.html" class="card">
+            <div class="thumb-box"><img src="image_b53fdb0ac9ff76b99ea6a89ed7c19e7a.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">TECH</span>
+            <h3 class="card-title">Samsung Galaxy A37 e Galaxy A57: Especificações de câmera vazadas</h3>
+        </a>
+        
+        <a href="news_39119978863e176638cfa529d35429c9.html" class="card">
+            <div class="thumb-box"><img src="image_39119978863e176638cfa529d35429c9.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">BUSINESS</span>
+            <h3 class="card-title">Como a IA transformou minha produtividade: O bom e o ruim em 2025</h3>
+        </a>
+        
+        <a href="news_0a6f352fbcc6212cb69323ad21ba58d1.html" class="card">
+            <div class="thumb-box"><img src="image_0a6f352fbcc6212cb69323ad21ba58d1.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">TECH</span>
+            <h3 class="card-title">Descubra os tesouros escondidos: 3 aplicativos de viagem gratuitos para explorar uma nova cidade</h3>
+        </a>
+        
+        <a href="news_d967b4dad83626c73b907c4eb8498c8c.html" class="card">
+            <div class="thumb-box"><img src="image_d967b4dad83626c73b907c4eb8498c8c.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">SCIENCE</span>
+            <h3 class="card-title">Como um grande jantar festivo afeta o seu cérebro?</h3>
+        </a>
+        
+        <a href="news_4f7a7ab4dbb7ff6386b9b8dfbd6bc427.html" class="card">
+            <div class="thumb-box"><img src="image_4f7a7ab4dbb7ff6386b9b8dfbd6bc427.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">GAMING</span>
+            <h3 class="card-title">Sonic Racing: CrossWorlds NiGHTS DLC Pack é Lançado de Graça Esta Semana</h3>
+        </a>
+        
+        <a href="news_289e41a1bd094aeaf61c231832c01abe.html" class="card">
+            <div class="thumb-box"><img src="image_289e41a1bd094aeaf61c231832c01abe.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">POLITICS</span>
+            <h3 class="card-title">Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira</h3>
+        </a>
+        
+        <a href="news_11b0b148a2b10109ba89adf2fb3ef3fd.html" class="card">
+            <div class="thumb-box"><img src="image_11b0b148a2b10109ba89adf2fb3ef3fd.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">BUSINESS</span>
+            <h3 class="card-title">S&P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA</h3>
+        </a>
+        
+        <a href="news_609df19df1621596d925af1c5db93ed3.html" class="card">
+            <div class="thumb-box"><img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">BUSINESS</span>
+            <h3 class="card-title">Athletics Vão Adquirir Jeff McNeil</h3>
+        </a>
+        
+        <a href="news_a767e82c112e365c54b2600ba1bcb4eb.html" class="card">
+            <div class="thumb-box"><img src="image_a767e82c112e365c54b2600ba1bcb4eb.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">POLITICS</span>
+            <h3 class="card-title">Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional</h3>
+        </a>
+        
+        <a href="news_22b3599501bb0aa261db698fd5221e28.html" class="card">
+            <div class="thumb-box"><img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">POLITICS</span>
+            <h3 class="card-title">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h3>
+        </a>
+        
+        <a href="news_b9f19aeaa596fd3d8a7d583a2f0bd45e.html" class="card">
+            <div class="thumb-box"><img src="image_b9f19aeaa596fd3d8a7d583a2f0bd45e.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">TECH</span>
+            <h3 class="card-title">ChatGPT lança uma revisão de ano semelhante ao Spotify Wrapped</h3>
+        </a>
+        
+        <a href="news_3ff988c3b06f362ca0b63351302294eb.html" class="card">
+            <div class="thumb-box"><img src="image_3ff988c3b06f362ca0b63351302294eb.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">BUSINESS</span>
+            <h3 class="card-title">Larry Ellison Apoia Pessoalmente Oferta da Paramount para a Warner Bros.</h3>
+        </a>
+        
+        <a href="news_04f1ff95fc9261edaf0d09f5d1633a94.html" class="card">
+            <div class="thumb-box"><img src="image_04f1ff95fc9261edaf0d09f5d1633a94.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">POLITICS</span>
+            <h3 class="card-title">Ucrânia e Rússia não terão acordo de paz, afirma Vance</h3>
+        </a>
+        
+        <a href="news_103e24e41f98c370d05366685899482b.html" class="card">
+            <div class="thumb-box"><img src="image_103e24e41f98c370d05366685899482b.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">ENTERTAINMENT</span>
+            <h3 class="card-title">Recebedor dos Steelers, DK Metcalf, tem história com fã envolvido em confronto</h3>
+        </a>
+        
+        <a href="news_76754ba4fe7e6ec5f4b5ebc5ff86cb3e.html" class="card">
+            <div class="thumb-box"><img src="image_76754ba4fe7e6ec5f4b5ebc5ff86cb3e.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">TECH</span>
+            <h3 class="card-title">Demure Dual-Ring Design Smartphones: Uma Nova Abordagem de Design para Celulares</h3>
+        </a>
+        
+        <a href="news_e256ec5e42a1cd2664d78047311c8bde.html" class="card">
+            <div class="thumb-box"><img src="image_e256ec5e42a1cd2664d78047311c8bde.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">BUSINESS</span>
+            <h3 class="card-title">HUAWEI Lança Campanha de Inverno e Aplicativo GameCenter, Oferecendo Recompensas e Experiências Elevadas em sua Ecosistema Expandido</h3>
+        </a>
+        
+        <a href="news_fe03e1d2258c70bfccee08fb6085a2d6.html" class="card">
+            <div class="thumb-box"><img src="image_fe03e1d2258c70bfccee08fb6085a2d6.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">GAMING</span>
+            <h3 class="card-title">Vince Zampella, co-criador de Call of Duty e Respawn Entertainment, faleceu</h3>
+        </a>
+        
+        <a href="news_222604e408d2f5f4a03b98a9f6781d84.html" class="card">
+            <div class="thumb-box"><img src="image_222604e408d2f5f4a03b98a9f6781d84.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">SCIENCE</span>
+            <h3 class="card-title">Aprendizado Holístico Misto em Imunologia Médica para Tradicional Chinesa</h3>
+        </a>
+        
+        <a href="news_4b3324f0dc989a3996b1d3b6a40fabf3.html" class="card">
+            <div class="thumb-box"><img src="image_4b3324f0dc989a3996b1d3b6a40fabf3.jpg" class="thumb" onerror="this.style.display='none'"></div>
+            <span class="card-cat">TECH</span>
+            <h3 class="card-title">iOS 26.3 trará funcionalidade de paragem de fones de ouvido de terceiros</h3>
+        </a>
+        
         </div>
+        
+        <footer style="text-align:center; padding:40px; border-top: 1px solid #eee; margin-top: 40px;">
+            <p>&copy; 2025 Nexus Brief • AI Curated News</p>
+        </footer>
     </body>
     </html>
     
