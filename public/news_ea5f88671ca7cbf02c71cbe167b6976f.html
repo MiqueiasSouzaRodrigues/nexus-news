@@ -5,66 +5,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turning Point tenta tomar o controle do Partido Republicano de Arizona</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Georgia', serif; line-height: 1.8; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; }
-        header { text-align: center; padding: 40px 0; border-bottom: 1px solid #ddd; margin-bottom: 40px; }
-        .brand { font-family: 'Helvetica', sans-serif; font-weight: bold; color: #00ff96; text-transform: uppercase; letter-spacing: 2px; background: #000; padding: 5px 10px; display: inline-block; }
-        h1 { font-family: 'Helvetica', sans-serif; font-size: 2.5em; line-height: 1.2; margin-bottom: 10px; color: #111; }
-        .meta { color: #666; font-size: 0.9em; font-family: sans-serif; }
-        .hero-img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 30px; }
-        .content { font-size: 1.1em; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        h2 { margin-top: 30px; font-family: 'Helvetica', sans-serif; }
-        p { margin-bottom: 20px; }
-        .footer { text-align: center; margin-top: 50px; color: #888; font-size: 0.8em; }
+        :root {
+            --brand-color: #e10098; /* Rosa The Verge */
+            --text-color: #111;
+            --bg-color: #fff;
+            --accent-bg: #f5f5f5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header Minimalista */
+        .site-header {
+            padding: 20px 5%;
+            border-bottom: 4px solid var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+        .logo span { color: var(--brand-color); }
+
+        /* Container Principal */
+        article {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Cabeçalho da Notícia */
+        .article-header h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Responsivo */
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .article-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        
+        .tag {
+            background: var(--text-color);
+            color: #fff;
+            padding: 4px 10px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        /* Imagem Hero (Estilo Wired) */
+        .hero-container {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            margin-bottom: 40px;
+            max-height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Corpo do Texto (Estilo Editorial) */
+        .content-body {
+            font-family: 'Merriweather', serif; /* Fonte com serifa para leitura longa */
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #222;
+        }
+
+        .content-body p { margin-bottom: 25px; }
+        
+        .content-body h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        
+        .content-body ul {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 3px solid var(--brand-color);
+        }
+        
+        .content-body li { margin-bottom: 10px; padding-left: 10px; }
+
+        /* Footer */
+        .article-footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Responsividade Mobile */
+        @media (max-width: 768px) {
+            .article-header h1 { font-size: 2.2rem; }
+            .hero-container { max-height: 300px; }
+            .content-body { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="brand">Nexus Brief</div>
-        <h1>Turning Point tenta tomar o controle do Partido Republicano de Arizona</h1>
-        <div class="meta">Publicado em 23/12/2025 • Fonte: Politico</div>
+    <header class="site-header">
+        <div class="logo">Nexus<span>Brief</span></div>
+        <div style="font-weight: bold;">23.12.2025</div>
     </header>
     
-    <main class="content">
-        <img src="https://www.politico.com/dims4/default/resize/1200/quality/90/format/jpg?url=https%3A%2F%2Fstatic.politico.com%2Feb%2Fe7%2Fb81f65504d85b2d28d959dbdabfb%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2251972988" class="hero-img" alt="Imagem da Notícia">
-        
-        <h2>Turning Point: O Desafio de Dominar o Partido Republicano de Arizona</h2>
-
-<p>Em um movimento que está revolucionando a política estadunidense, a Turning Point Action, uma organização de direita, está empenhada em conquistar o controle do Partido Republicano de Arizona. Com uma estratégia ambiciosa e uma base de apoio crescente, a Turning Point está se tornando um fator de influência significativo na política estadunidense.</p>
-
-<h2>O Que Aconteceu</h2>
-
-<p>A Turning Point Action, fundada em 2012, é uma organização sem fins lucrativos que visa promover a ideologia conservadora e republicana. Com uma presença forte nas redes sociais e uma base de apoio de milhões de pessoas, a organização está se tornando uma força política significativa.</p>
-
-<ul>
-  <li>A Turning Point Action está investindo pesadamente em Arizona, onde o Partido Republicano está em disputa. A organização está trabalhando para eleger candidatos conservadores e influenciar a política do estado.</li>
-  <li>A Turning Point Action está utilizando uma estratégia de "guerrilha" para conquistar o controle do Partido Republicano. A organização está apoiando candidatos conservadores e trabalhando para remover os opositores da política do estado.</li>
-  <li>A Turning Point Action está recebendo apoio financeiro de doadores conservadores e empresários. A organização está utilizando esses recursos para financiar suas campanhas e influenciar a política do estado.</li>
-</ul>
-
-<h2>Análise de Mercado</h2>
-
-<p>A conquista do Partido Republicano de Arizona pela Turning Point Action pode ter um impacto significativo no mercado político estadunidense. A organização está se tornando uma força política significativa e pode influenciar a política do estado e do país.</p>
-
-<ul>
-  <li>A conquista do Partido Republicano de Arizona pela Turning Point Action pode levar a uma mudança na política do estado e do país. A organização está promovendo uma ideologia conservadora e republicana, o que pode influenciar a política do país.</li>
-  <li>A Turning Point Action está se tornando uma força política significativa e pode influenciar a política do estado e do país. A organização está recebendo apoio financeiro de doadores conservadores e empresários, o que pode aumentar sua influência.</li>
-  <li>A conquista do Partido Republicano de Arizona pela Turning Point Action pode ter um impacto negativo nos concorrentes da organização. A Turning Point Action está se tornando uma força política significativa e pode influenciar a política do estado e do país.</li>
-</ul>
-
-<h2>Visão de Futuro</h2>
-
-<p>A Turning Point Action está se tornando uma força política significativa e pode influenciar a política do estado e do país. A organização está promovendo uma ideologia conservadora e republicana e está recebendo apoio financeiro de doadores conservadores e empresários.</p>
-
-<ul>
-  <li>A Turning Point Action pode continuar a conquistar o controle do Partido Republicano de Arizona e influenciar a política do estado e do país.</li>
-  <li>A organização pode se expandir para outros estados e influenciar a política nacional.</li>
-  <li>A Turning Point Action pode continuar a receber apoio financeiro de doadores conservadores e empresários, o que pode aumentar sua influência.</li>
-</ul>
-    </main>
-
-    <div class="footer">
-        &copy; 2025 Nexus Brief AI. Notícia gerada automaticamente.
+    <div class="hero-container">
+        <img src="https://www.politico.com/dims4/default/resize/1200/quality/90/format/jpg?url=https%3A%2F%2Fstatic.politico.com%2Feb%2Fe7%2Fb81f65504d85b2d28d959dbdabfb%2Fhttps-delivery-gettyimages.com%2Fdownloads%2F2251972988" class="hero-img" alt="Hero Image">
     </div>
+
+    <article>
+        <header class="article-header">
+            <div class="article-meta">
+                <span class="tag">POLITICA_BR</span>
+                <span>FONTE: Politico</span>
+                <span>•</span>
+                <span>4 MIN LEITURA</span>
+            </div>
+            <h1>Turning Point tenta tomar o controle do Partido Republicano de Arizona</h1>
+        </header>
+        
+        <main class="content-body">
+            <h2>Uma Batalha para o Controle: Como o Turning Point Busca Dominar o Partido Republicano de Arizona</h2>
+
+<p>Em um esforço para transformar a política republicana em Arizona, o Turning Point Action, uma organização sem fins lucrativos de direita, está trabalhando incansavelmente para tomar o controle do partido. Com uma abordagem agressiva e uma rede de influentes aliados, o Turning Point está buscando criar um movimento de massa que possa impulsionar suas ideias e candidatos ao poder.</p>
+
+<h2>Um Plano Ambicioso</h2>
+
+<p>De acordo com fontes próximas ao Turning Point, a organização tem um plano ambicioso para dominar o Partido Republicano de Arizona. Isso inclui:</p>
+
+<ul>
+  <li>A criação de uma rede de voluntários e ativistas comprometidos com as ideias do Turning Point;</li>
+  <li>O apoio a candidatos que compartilham suas visões políticas;</li>
+  <li>A influência em decisões partidárias e a seleção de candidatos;</li>
+  <li>A criação de uma plataforma política que possa ser executada em todo o estado.</li>
+</ul>
+
+<h2>A Influência do Turning Point</h2>
+
+<p>O Turning Point Action tem uma influência significativa na política republicana de Arizona. Com uma rede de aliados influentes, incluindo políticos, empresários e ativistas, a organização tem conseguido impulsionar suas ideias e candidatos ao poder.</p>
+
+<p>Alguns exemplos da influência do Turning Point incluem:</p>
+
+<ul>
+  <li>O apoio a candidatos como Kari Lake, que concorreu ao governador de Arizona em 2022;</li>
+  <li>A influência em decisões partidárias, como a escolha de candidatos para a Câmara dos Representantes dos EUA;</li>
+  <li>A criação de uma plataforma política que enfatiza a segurança nacional, a economia e a liberdade individual.</li>
+</ul>
+
+<h2>Desafios e Oposição</h2>
+
+<p>Embora o Turning Point tenha uma influência significativa na política republicana de Arizona, a organização enfrenta desafios e oposição de várias fontes. Isso inclui:</p>
+
+<ul>
+  <li>A oposição de outros grupos políticos, como o Partido Democrata de Arizona;</li>
+  <li>A resistência de alguns políticos republicanos que não compartilham as visões do Turning Point;</li>
+  <li>A crítica de alguns observadores que argumentam que o Turning Point está buscando criar um partido dentro do partido.</li>
+</ul>
+
+<h2>O que Vem A Seguir</h2>
+
+<p>A batalha para o controle do Partido Republicano de Arizona está longe de terminar. Com o Turning Point continuando a trabalhar incansavelmente para tomar o controle do partido, é provável que a luta por influência e poder continue a ser intensa. O que acontecerá em seguida? Só o tempo dirá.</p>
+        </main>
+
+        <footer class="article-footer">
+            <p>&copy; 2025 Nexus Brief AI. Curadoria Automática.</p>
+            <p>Notícia Original: <a href="https://www.politico.com/news/2025/12/22/turning-point-usa-arizona-republican-party-00702306" target="_blank" style="color:var(--brand-color)">Acessar Fonte</a></p>
+        </footer>
+    </article>
 </body>
 </html>
