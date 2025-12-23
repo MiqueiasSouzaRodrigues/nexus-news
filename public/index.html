@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nexus Brief - Curadoria inteligente de notícias premium sobre tecnologia, ciência e negócios">
     <title>Nexus Brief - AI Curated News</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +19,7 @@
             --shadow: rgba(0, 0, 0, 0.1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -33,10 +28,8 @@
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* HEADER PREMIUM */
         .site-header {
             display: flex; 
             justify-content: space-between; 
@@ -45,11 +38,10 @@
             border-bottom: 1px solid var(--border);
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             z-index: 100; 
             position: sticky; 
             top: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
         }
         
         .site-header.scrolled {
@@ -63,27 +55,15 @@
             letter-spacing: -1.5px; 
             text-decoration: none; 
             color: var(--text);
-            transition: transform 0.2s;
-        }
-        
-        .logo:hover {
-            transform: translateY(-2px);
         }
         
         .logo span { 
-            color: var(--accent);
-            background: linear-gradient(135deg, var(--accent), #ff4400);
+            background: linear-gradient(135deg, #e10098, #ff4400);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        /* DESKTOP NAV PREMIUM */
-        .desktop-nav { 
-            display: flex; 
-            gap: 32px;
-            align-items: center;
-        }
+        .desktop-nav { display: flex; gap: 32px; align-items: center; }
         
         .nav-link { 
             text-decoration: none; 
@@ -105,23 +85,16 @@
             width: 0;
             height: 2px;
             background: var(--accent);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.3s;
         }
         
-        .nav-link:hover {
-            color: var(--accent);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link:hover::after { width: 100%; }
 
-        /* HAMBURGER PREMIUM */
         .hamburger { 
             cursor: pointer; 
             width: 32px;
             height: 24px;
-            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -133,7 +106,7 @@
             height: 3px;
             background: var(--text);
             border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
         }
         
         .hamburger.active span:nth-child(1) {
@@ -141,27 +114,24 @@
             background: white;
         }
         
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
         
         .hamburger.active span:nth-child(3) {
             transform: translateY(-10.5px) rotate(-45deg);
             background: white;
         }
 
-        /* SIDEBAR PREMIUM */
         .sidebar {
             position: fixed; 
             top: 0; 
             right: -400px; 
             width: 380px; 
             height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
             color: #fff; 
             z-index: 200;
             padding: 60px 40px;
-            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: right 0.5s;
             display: flex; 
             flex-direction: column; 
             gap: 8px;
@@ -169,16 +139,12 @@
             overflow-y: auto;
         }
         
-        .sidebar.active { 
-            right: 0; 
-        }
+        .sidebar.active { right: 0; }
         
         .sidebar-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6);
             z-index: 199;
             opacity: 0;
@@ -197,13 +163,7 @@
             cursor: pointer; 
             font-size: 2.5rem; 
             margin-bottom: 40px;
-            color: rgba(255, 255, 255, 0.8);
             transition: all 0.2s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .sidebar-close:hover {
@@ -216,65 +176,35 @@
             text-decoration: none; 
             font-size: 1.75rem; 
             font-weight: 800;
-            letter-spacing: -0.5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
             padding: 24px 0;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .sidebar-link::before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent);
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .sidebar-link:hover { 
             color: white;
             padding-left: 12px;
         }
-        
-        .sidebar-link:hover::before {
-            left: 0;
-        }
 
-        /* HERO IMAGE PREMIUM */
         .article-hero-img {
             width: 100%;
             height: 600px;
             object-fit: cover;
+            object-position: center;
             display: block;
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
-        /* ARTICLE STYLES PREMIUM */
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .site-header { padding: 16px 24px; }
+            .article-hero-img { height: 400px; }
+            .sidebar { width: 100%; right: -100%; }
+        }
+
         .article-container { 
             max-width: 720px; 
             margin: 0 auto; 
             padding: 60px 24px;
-            animation: slideUp 0.6s ease-out;
-        }
-        
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
         }
         
         .article-meta { 
@@ -294,7 +224,6 @@
             line-height: 1.05; 
             margin-bottom: 32px; 
             letter-spacing: -2.5px;
-            color: var(--text);
         }
         
         .article-summary {
@@ -315,9 +244,7 @@
             color: #2a2a2a;
         }
         
-        .article-body p { 
-            margin-bottom: 32px;
-        }
+        .article-body p { margin-bottom: 32px; }
         
         .article-body h2 { 
             font-family: 'Inter', sans-serif;
@@ -325,229 +252,44 @@
             font-size: 2rem; 
             margin-top: 56px; 
             margin-bottom: 24px;
-            letter-spacing: -1px;
-            color: var(--text);
-        }
-        
-        .article-body a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent);
-            transition: all 0.2s;
-        }
-        
-        .article-body a:hover {
-            background: var(--accent);
-            color: white;
-            padding: 2px 4px;
-            margin: -2px -4px;
-        }
-
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 768px) {
-            .desktop-nav { display: none; }
-            .site-header { padding: 16px 24px; }
-            .article-hero-img { height: 400px; }
-            .article-container { padding: 40px 20px; }
-            .sidebar { width: 100%; right: -100%; }
-            .logo { font-size: 1.5rem; }
-        }
-        
-        /* LOADING ANIMATION */
-        .loading-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
     </style>
 
     <script>
-        let sidebar = null;
-        let overlay = null;
-        let hamburger = null;
-        
         document.addEventListener('DOMContentLoaded', function() {
-            sidebar = document.getElementById('sidebar');
-            overlay = document.getElementById('sidebar-overlay');
-            hamburger = document.querySelector('.hamburger');
-            
-            // Scroll header effect
-            let lastScroll = 0;
             const header = document.querySelector('.site-header');
-            
             window.addEventListener('scroll', () => {
-                const currentScroll = window.pageYOffset;
-                
-                if (currentScroll > 50) {
+                if (window.pageYOffset > 50) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
                 }
-                
-                lastScroll = currentScroll;
             });
         });
         
         function toggleMenu() {
-            if (sidebar && overlay && hamburger) {
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                
-                // Prevent body scroll when menu is open
-                if (sidebar.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const hamburger = document.querySelector('.hamburger');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
             }
         }
         
         function closeMenu() {
-            if (sidebar && overlay && hamburger) {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.body.style.overflow = '';
         }
     </script>
-    
-    
-    <style>
-        .home-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-        
-        .news-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .card { 
-            text-decoration: none; 
-            color: inherit; 
-            display: flex; 
-            flex-direction: column;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-        
-        .card:hover {
-            transform: translateY(-8px);
-        }
-        
-        .card:hover .thumb {
-            transform: scale(1.05);
-        }
-        
-        .thumb-box { 
-            overflow: hidden; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            aspect-ratio: 16/10;
-            background: var(--surface);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-        
-        .thumb { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-cat { 
-            font-family: 'Fira Code', monospace;
-            font-size: 0.7rem; 
-            color: var(--accent); 
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        
-        .card-title { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            line-height: 1.25;
-            letter-spacing: -0.5px;
-            color: var(--text);
-        }
-
-        /* HERO SECTION PREMIUM */
-        .hero-section { 
-            position: relative; 
-            height: 70vh;
-            min-height: 500px;
-            width: 100%; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: flex-end; 
-            color: white; 
-            text-decoration: none;
-            margin-bottom: 60px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .hero-bg { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            z-index: -1;
-            filter: brightness(0.7);
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .hero-section:hover .hero-bg {
-            transform: scale(1.03);
-            filter: brightness(0.8);
-        }
-        
-        .hero-content { 
-            padding: 60px; 
-            max-width: 900px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            width: 100%;
-            z-index: 1;
-        }
-        
-        .hero-label {
-            color: var(--accent);
-            font-weight: 700;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            display: block;
-        }
-        
-        .hero-title { 
-            font-size: clamp(2.5rem, 5vw, 5rem); 
-            font-weight: 900; 
-            line-height: 1.05;
-            letter-spacing: -2px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-        }
-        
-        @media (max-width: 768px) {
-            .hero-section { height: 60vh; border-radius: 0; margin-bottom: 40px; }
-            .hero-content { padding: 40px 24px; }
-            .news-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
-        }
-    </style>
     
 </head>
 <body>
@@ -556,10 +298,10 @@
         <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
 
         <nav class="desktop-nav">
-            <a href="#" class="nav-link">Technology</a>
-            <a href="#" class="nav-link">Science</a>
-            <a href="#" class="nav-link">Business</a>
-            <a href="#" class="nav-link">Culture</a>
+            <a href="category_tech.html" class="nav-link">Technology</a>
+            <a href="category_science.html" class="nav-link">Science</a>
+            <a href="category_business.html" class="nav-link">Business</a>
+            <a href="category_culture.html" class="nav-link">Culture</a>
         </nav>
 
         <div class="hamburger" onclick="toggleMenu()">
@@ -574,63 +316,59 @@
     <aside id="sidebar" class="sidebar">
         <div class="sidebar-close" onclick="closeMenu()">×</div>
         <a href="index.html" class="sidebar-link" onclick="closeMenu()">HOME</a>
-        <a href="#" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
-        <a href="#" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
-        <a href="#" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
-        <a href="#" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
+        <a href="category_tech.html" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
+        <a href="category_science.html" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
+        <a href="category_business.html" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
+        <a href="category_culture.html" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
         <a href="#" class="sidebar-link" onclick="closeMenu()">ABOUT</a>
     </aside>
     
-
-    <div class="home-container">
-        <a href="news_289e41a1bd094aeaf61c231832c01abe.html" class="hero-section">
-            <img src="image_289e41a1bd094aeaf61c231832c01abe.jpg" class="hero-bg" alt="Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira" loading="eager" onerror="this.src='https://placehold.co/1400x800/0a0a0a/ffffff?text=Nexus+Brief'">
-            <div class="hero-content">
-                <span class="hero-label">// DESTAQUE</span>
-                <h1 class="hero-title">Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira</h1>
+    <div style="max-width:1400px;margin:0 auto;padding:40px 24px;">
+        <a href="news_289e41a1bd094aeaf61c231832c01abe.html" style="position:relative;height:70vh;min-height:500px;display:flex;align-items:flex-end;text-decoration:none;color:white;border-radius:16px;overflow:hidden;margin-bottom:60px;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+            <img src="image_289e41a1bd094aeaf61c231832c01abe.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.7);">
+            <div style="position:relative;padding:60px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);width:100%;">
+                <span style="color:#e10098;font-weight:700;font-size:0.875rem;text-transform:uppercase;">// DESTAQUE</span>
+                <h1 style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;line-height:1.05;margin-top:16px;">Administração Trump Recalça Súbitamente Mais de Vinte Embaixadores de Carreira</h1>
             </div>
         </a>
-
-        <div class="news-grid">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:40px;">
             
-        <a href="news_11b0b148a2b10109ba89adf2fb3ef3fd.html" class="card">
-            <div class="thumb-box">
-                <img src="image_11b0b148a2b10109ba89adf2fb3ef3fd.jpg" class="thumb" alt="S&amp;P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA" loading="lazy" onerror="this.style.display='none'">
+        <a href="news_11b0b148a2b10109ba89adf2fb3ef3fd.html" style="text-decoration:none;color:inherit;display:block;">
+            <div style="overflow:hidden;border-radius:8px;margin-bottom:20px;aspect-ratio:16/10;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <img src="image_11b0b148a2b10109ba89adf2fb3ef3fd.jpg" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;">
             </div>
-            <span class="card-cat">BUSINESS</span>
-            <h3 class="card-title">S&P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA</h3>
+            <span style="font-size:0.7rem;color:#e10098;font-weight:700;">BUSINESS</span>
+            <h3 style="font-size:1.4rem;font-weight:800;margin-top:8px;">S&P 500 registra terceiro dia consecutivo de ganhos, impulsionado por negócios de IA</h3>
         </a>
         
-        <a href="news_609df19df1621596d925af1c5db93ed3.html" class="card">
-            <div class="thumb-box">
-                <img src="image_609df19df1621596d925af1c5db93ed3.jpg" class="thumb" alt="Athletics Vão Adquirir Jeff McNeil" loading="lazy" onerror="this.style.display='none'">
+        <a href="news_609df19df1621596d925af1c5db93ed3.html" style="text-decoration:none;color:inherit;display:block;">
+            <div style="overflow:hidden;border-radius:8px;margin-bottom:20px;aspect-ratio:16/10;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <img src="image_609df19df1621596d925af1c5db93ed3.jpg" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;">
             </div>
-            <span class="card-cat">BUSINESS</span>
-            <h3 class="card-title">Athletics Vão Adquirir Jeff McNeil</h3>
+            <span style="font-size:0.7rem;color:#e10098;font-weight:700;">BUSINESS</span>
+            <h3 style="font-size:1.4rem;font-weight:800;margin-top:8px;">Athletics Vão Adquirir Jeff McNeil</h3>
         </a>
         
-        <a href="news_a767e82c112e365c54b2600ba1bcb4eb.html" class="card">
-            <div class="thumb-box">
-                <img src="image_a767e82c112e365c54b2600ba1bcb4eb.jpg" class="thumb" alt="Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional" loading="lazy" onerror="this.style.display='none'">
+        <a href="news_a767e82c112e365c54b2600ba1bcb4eb.html" style="text-decoration:none;color:inherit;display:block;">
+            <div style="overflow:hidden;border-radius:8px;margin-bottom:20px;aspect-ratio:16/10;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <img src="image_a767e82c112e365c54b2600ba1bcb4eb.jpg" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;">
             </div>
-            <span class="card-cat">POLITICS</span>
-            <h3 class="card-title">Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional</h3>
+            <span style="font-size:0.7rem;color:#e10098;font-weight:700;">POLITICS</span>
+            <h3 style="font-size:1.4rem;font-weight:800;margin-top:8px;">Administração Trump suspende 5 projetos eólicos na costa leste, citando preocupações de segurança nacional</h3>
         </a>
         
-        <a href="news_22b3599501bb0aa261db698fd5221e28.html" class="card">
-            <div class="thumb-box">
-                <img src="image_22b3599501bb0aa261db698fd5221e28.jpg" class="thumb" alt="Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos" loading="lazy" onerror="this.style.display='none'">
+        <a href="news_22b3599501bb0aa261db698fd5221e28.html" style="text-decoration:none;color:inherit;display:block;">
+            <div style="overflow:hidden;border-radius:8px;margin-bottom:20px;aspect-ratio:16/10;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <img src="image_22b3599501bb0aa261db698fd5221e28.jpg" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;">
             </div>
-            <span class="card-cat">POLITICS</span>
-            <h3 class="card-title">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h3>
+            <span style="font-size:0.7rem;color:#e10098;font-weight:700;">POLITICS</span>
+            <h3 style="font-size:1.4rem;font-weight:800;margin-top:8px;">Bill Clinton é citado em arquivos de Epstein, ex-demandante pede liberação de documentos</h3>
         </a>
         
         </div>
     </div>
-
-    <footer style="text-align:center; padding:80px 24px 40px; border-top: 1px solid var(--border); margin-top: 80px;">
-        <p style="font-size:0.875rem; color:#999; margin-bottom:12px;">&copy; 2025 Nexus Brief • Powered by AI</p>
-        <p style="font-size:0.75rem; color:#ccc;">Curadoria inteligente de notícias</p>
+    <footer style="text-align:center;padding:80px 24px;border-top:1px solid #eee;margin-top:80px;">
+        <p>&copy; 2025 Nexus Brief • AI Curated News</p>
     </footer>
 </body>
 </html>
