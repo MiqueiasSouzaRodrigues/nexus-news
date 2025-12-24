@@ -85,7 +85,7 @@ def get_ready_to_send(min_score=1):
         cursor.execute("""
             SELECT * FROM articles 
             WHERE status='ANALYZED' AND final_score >= ? 
-            ORDER BY final_score DESC LIMIT 3
+            ORDER BY final_score DESC LIMIT 20
         """, (min_score,))
         return [dict(row) for row in cursor.fetchall()]
 
@@ -94,3 +94,41 @@ def mark_as_sent(article_ids):
         placeholders = ','.join('?' * len(article_ids))
         conn.execute(f"UPDATE articles SET status='SENT' WHERE id IN ({placeholders})", article_ids)
 
+def get_latest_news(limit=20):
+    """Retorna as últimas notícias aprovadas para montar a Home Page."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    # CORREÇÃO: Mudamos 'FROM news' para 'FROM articles'
+    try:
+        cursor.execute("""
+            SELECT id, title, headline_pt, source, desk, ai_summary, published_at, url, image_url
+            FROM articles 
+            WHERE status = 'ANALYZED' 
+            ORDER BY created_at DESC 
+            LIMIT ?
+        """, (limit,))
+        
+        rows = cursor.fetchall()
+    except Exception as e:
+        print(f"⚠️ Erro ao buscar notícias para Home: {e}")
+        return []
+    finally:
+        conn.close()
+    
+    # Converte para lista de dicionários
+    news_list = []
+    for r in rows:
+        news_list.append({
+            "id": r[0],
+            "title": r[1],
+            "headline_pt": r[2],
+            "source": r[3],
+            "desk": r[4],
+            "ai_summary": r[5],
+            "published_at": r[6],
+            "url": r[7],       
+            "image_url": r[8]
+        })
+    
+    return news_list

@@ -1,73 +1,44 @@
-from groq import Groq, RateLimitError
-import json
+from groq import Groq
 import os
-import time
-import re
-from core.config import NEWS_TYPES, DESKS
+import json
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
-# MUDANÇA 1: Usar um modelo mais leve e rápido para economizar cota
-MODELO_PRINCIPAL = "llama-3.1-8b-instant" 
-
-def analyze_article(title, source, full_text=""):
+def analyze_article(title, source):
     """
-    Transforma texto bruto em inteligência editorial com Retry Logic.
+    Analisa a notícia para:
+    1. Validar se faz sentido (Anti-Alucinação).
+    2. Corrigir a Categoria (Ex: Trailer não é Política).
+    3. Gerar um resumo contexto para a imagem.
     """
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     
     prompt = f"""
-    Atue como Editor Chefe. Analise: "{title}" da fonte "{source}".
+    Analise esta notícia: "{title}" da fonte "{source}".
     
-    TAREFA:
-    1. Categorize CORRETAMENTE (Politics, Sports, Tech, Market, etc).
-    2. Resuma em Português (max 2 frases).
-    3. 'why_it_matters': Por que importa? (1 frase).
+    TAREFAS OBRIGATÓRIAS:
+    1. CATEGORIA: Classifique corretamente em uma destas: TECH, SCIENCE, BUSINESS, POLITICS, ENTERTAINMENT, GAMING, SECURITY.
+       (Exemplo: Filmes/Trailers = ENTERTAINMENT. Leis/Governo = POLITICS. IA/Hardware = TECH).
+    2. VALIDAR: Isso parece uma notícia real e atual? Se for algo muito genérico ou parecer erro de scraping, marque como FALSE.
+    3. RESUMO: Escreva um resumo de 1 parágrafo em Português.
+    4. ENGLISH_CONTEXT: Um resumo curto em INGLÊS focado no visual para gerar uma imagem (Ex: "Matt Damon in a greek boat scene, cinematic movie trailer").
     
-    SAÍDA JSON (SEM MARKDOWN):
+    Retorne APENAS um JSON neste formato:
     {{
-        "headline_pt": "Título em PT",
-        "desk": "ESCOLHA: [POLITICA_BR, POLITICA_INTL, MERCADO, ESPORTES, SAUDE, TECH, GEOPOLITICA]",
-        "news_type": "STRATEGY_SHIFT | MARKET_MOVE | TECH_INNOVATION | RISK_ALERT | GENERAL",
-        "summary_pt": "Resumo...",
-        "why_it_matters": "Contexto...",
-        "market_impact": "Impacto...",
-        "editorial_score": 80,
-        "impact_score": 80
+        "is_valid": true,
+        "desk": "CORRECT_CATEGORY",
+        "headline_pt": "Título Melhorado em PT-BR",
+        "ai_summary": "Resumo...",
+        "image_prompt": "English visual description..."
     }}
     """
     
-    # MUDANÇA 2: Retry Logic (Tenta até 3 vezes se der erro de Rate Limit)
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            completion = client.chat.completions.create(
-                model=MODELO_PRINCIPAL,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.1,
-                response_format={"type": "json_object"}
-            )
-            return json.loads(completion.choices[0].message.content)
-
-        except RateLimitError as e:
-            # Captura o tempo de espera da mensagem de erro (ex: "Try again in 4m18s")
-            error_msg = str(e)
-            print(f"⚠️ Rate Limit atingido. Tentativa {attempt+1}/{max_retries}")
-            
-            # Tenta achar os segundos na mensagem de erro
-            wait_time = 60 # Default
-            match = re.search(r'try again in (\d+)m(\d+)', error_msg)
-            if match:
-                minutes = int(match.group(1))
-                seconds = int(match.group(2))
-                wait_time = (minutes * 60) + seconds + 5 # +5s de segurança
-            
-            print(f"⏳ Dormindo por {wait_time} segundos para esfriar a API...")
-            time.sleep(wait_time)
-            continue # Tenta de novo
-            
-        except Exception as e:
-            print(f"❌ Erro Irrecuperável na IA: {e}")
-            return None
-            
-    print("❌ Falha após múltiplas tentativas.")
-    return None
+    try:
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+        return json.loads(completion.choices[0].message.content)
+    except Exception as e:
+        print(f"Erro na análise: {e}")
+        return None

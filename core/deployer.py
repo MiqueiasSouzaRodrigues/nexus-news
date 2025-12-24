@@ -1,46 +1,62 @@
 import os
 import subprocess
 import time
+import requests # <--- NOVO IMPORT
 
 # Configuração do GitHub Pages
-# Mude para o seu usuário e repo
-GITHUB_USER = "MiqueiasSouzaRodrigues"
+GITHUB_USER = "MiqueiasSouzaRodrigues" # Seu usuário exato
 REPO_NAME = "nexus-news"
-BASE_URL = f"https://{GITHUB_USER}.github.io/{REPO_NAME}/public"
+# DICA: GitHub Pages costuma forçar lowercase (letras minúsculas) na URL
+BASE_URL = f"https://{GITHUB_USER.lower()}.github.io/{REPO_NAME}/public"
 
 def push_content_to_cloud():
-    """
-    Executa comandos Git para subir os arquivos novos para o GitHub Pages.
-    Retorna True se sucesso.
-    """
+    """Executa comandos Git para subir os arquivos."""
     print("☁️ Iniciando Deploy para a Nuvem (GitHub Pages)...")
-    
     try:
-        # 1. Adicionar tudo na pasta public
         subprocess.run(["git", "add", "public/*"], check=True)
-        
-        # 2. Commit com data/hora
         msg = f"Auto-Update: {time.strftime('%Y-%m-%d %H:%M')}"
-        subprocess.run(["git", "commit", "-m", msg], check=False) # Check False pois pode não ter mudanças
-        
-        # 3. Push
+        subprocess.run(["git", "commit", "-m", msg], check=False)
         subprocess.run(["git", "push", "-u", "origin", "main"], check=True)
         
-        print("✅ Deploy concluído! Arquivos estão online.")
-        # O GitHub leva uns 30s para atualizar o cache, vamos dar uma pausa segura
-        time.sleep(15) 
+        print("✅ Upload Git concluído!")
         return True
-        
     except Exception as e:
-        print(f"❌ Falha no Deploy: {e}")
+        print(f"❌ Falha no Deploy Git: {e}")
+        return False
+
+def check_url_status(url):
+    """Verifica se a URL já responde com 200 OK."""
+    try:
+        r = requests.head(url, timeout=5)
+        return r.status_code == 200
+    except:
         return False
 
 def get_public_links(card_filename, html_filename):
-    """
-    Transforma nomes de arquivos locais em Links Públicos da Web.
-    Ex: card_123.jpg -> https://usuario.github.io/repo/public/card_123.jpg
-    """
-    card_url = f"{BASE_URL}/{os.path.basename(card_filename)}" if card_filename else None
-    html_url = f"{BASE_URL}/{os.path.basename(html_filename)}" if html_filename else None
+    if not card_filename: return None, None
     
+    card_name = os.path.basename(card_filename)
+    html_name = os.path.basename(html_filename)
+    
+    # FORÇAR MINÚSCULO NO USUÁRIO PARA EVITAR ERRO 404
+    user_lower = GITHUB_USER.lower()
+    
+    # Monta a URL garantindo a pasta /public/
+    card_url = f"https://{user_lower}.github.io/{REPO_NAME}/public/{card_name}"
+    html_url = f"https://{user_lower}.github.io/{REPO_NAME}/public/{html_name}"
+    
+    print(f"🔍 [DEBUG] URL Gerada: {card_url}") 
+    print(f"⏳ Aguardando GitHub (Pode levar até 2 min)...")
+    
+    # Loop de espera (30 tentativas de 5s = 2.5 minutos)
+    for i in range(30): 
+        if check_url_status(card_url):
+            print(f"✅ [ONLINE] Imagem no ar!")
+            return card_url, html_url
+        
+        # Feedback visual de progresso (.)
+        print(".", end="", flush=True)
+        time.sleep(5)
+    
+    print("\n⚠️ Tempo esgotado! O GitHub está lento hoje. Enviando link assim mesmo.")
     return card_url, html_url
