@@ -1,136 +1,353 @@
-
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Criador morre em acidente de carro na Califórnia</title>
-        
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criador do Call of Duty morre em acidente de carro na Califórnia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #e10098; --text: #111; --bg: #fff; }
+        :root { 
+            --accent: #e10098; 
+            --text: #0a0a0a; 
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --border: #e1e4e8;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; overflow-x: hidden; background: var(--bg); color: var(--text); }
         
-        /* HEADER */
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
         .site-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 40px; border-bottom: 1px solid #eee;
-            background: #fff; z-index: 100; position: sticky; top: 0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 24px 48px; 
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100; 
+            position: sticky; 
+            top: 0;
+            transition: all 0.3s;
         }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; text-decoration: none; color: #000; }
-        .logo span { color: var(--accent); }
-
-        /* DESKTOP CATEGORIES */
-        .desktop-nav { display: flex; gap: 25px; }
-        .nav-link { text-decoration: none; color: #555; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav-link:hover { color: var(--accent); }
-
-        /* HAMBURGER ICON */
-        .hamburger { cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; }
         
-        /* SIDEBAR (Menu Lateral Escondido) */
-        .sidebar {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: #111; color: #fff; z-index: 200;
-            padding: 40px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; gap: 20px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        .site-header.scrolled {
+            padding: 16px 48px;
+            box-shadow: 0 2px 20px var(--shadow);
         }
-        .sidebar.active { right: 0; }
-        .sidebar-close { align-self: flex-end; cursor: pointer; font-size: 2rem; margin-bottom: 20px; }
-        .sidebar-link { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 15px; }
-        .sidebar-link:hover { color: var(--accent); border-color: var(--accent); }
+        
+        .logo { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+            text-decoration: none; 
+            color: var(--text);
+        }
+        
+        .logo span { 
+            background: linear-gradient(135deg, #e10098, #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* HERO IMAGE FIXA NA NOTÍCIA */
+        .desktop-nav { display: flex; gap: 32px; align-items: center; }
+        
+        .nav-link { 
+            text-decoration: none; 
+            color: #555; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover { color: var(--accent); }
+        .nav-link:hover::after { width: 100%; }
+
+        .hamburger { 
+            cursor: pointer; 
+            width: 32px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 201;
+        }
+        
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10.5px) rotate(45deg);
+            background: white;
+        }
+        
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10.5px) rotate(-45deg);
+            background: white;
+        }
+
+        .sidebar {
+            position: fixed; 
+            top: 0; 
+            right: -400px; 
+            width: 380px; 
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            color: #fff; 
+            z-index: 200;
+            padding: 60px 40px;
+            transition: right 0.5s;
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active { right: 0; }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            backdrop-filter: blur(4px);
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .sidebar-close { 
+            align-self: flex-end; 
+            cursor: pointer; 
+            font-size: 2.5rem; 
+            margin-bottom: 40px;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-link { 
+            color: rgba(255, 255, 255, 0.9); 
+            text-decoration: none; 
+            font-size: 1.75rem; 
+            font-weight: 800;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 24px 0;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-link:hover { 
+            color: white;
+            padding-left: 12px;
+        }
+
         .article-hero-img {
             width: 100%;
-            height: 500px; /* Altura Fixa */
-            object-fit: cover; /* Garante que a imagem preencha sem distorcer */
-            background: #f0f0f0;
+            height: 600px;
+            object-fit: cover;
+            object-position: center;
             display: block;
         }
 
-        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .desktop-nav { display: none; } /* Esconde categorias no mobile */
-            .site-header { padding: 15px 20px; }
-            .article-hero-img { height: 350px; } /* Menor no celular */
+            .desktop-nav { display: none; }
+            .site-header { padding: 16px 24px; }
+            .article-hero-img { height: 400px; }
+            .sidebar { width: 100%; right: -100%; }
+        }
+
+        .article-container { 
+            max-width: 720px; 
+            margin: 0 auto; 
+            padding: 60px 24px;
         }
         
-        /* ESTILOS COMUNS DE ARTIGO */
-        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-        .article-meta { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: bold; margin-bottom: 10px; display: block; }
-        .article-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
-        .article-body { font-family: 'Merriweather', serif; font-size: 1.15rem; line-height: 1.8; color: #333; }
-        .article-body p { margin-bottom: 25px; }
-        .article-body h2 { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 2rem; margin-top: 40px; margin-bottom: 15px; }
+        .article-meta { 
+            font-family: 'Fira Code', monospace;
+            color: var(--accent); 
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 16px; 
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-title { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-weight: 900; 
+            line-height: 1.05; 
+            margin-bottom: 32px; 
+            letter-spacing: -2.5px;
+        }
+        
+        .article-summary {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 48px;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .article-body { 
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            color: #2a2a2a;
+        }
+        
+        .article-body p { margin-bottom: 32px; }
+        
+        .article-body h2 { 
+            font-family: 'Inter', sans-serif;
+            font-weight: 800; 
+            font-size: 2rem; 
+            margin-top: 56px; 
+            margin-bottom: 24px;
+        }
     </style>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.site-header');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+        
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const hamburger = document.querySelector('.hamburger');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function closeMenu() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.body.style.overflow = '';
         }
     </script>
     
-        <style>:root { --accent: #ff4400; }</style>
-    </head>
-    <body>
+    
+        <style>
+            .article-container { max-width: 1000px; }
+        </style>
         
+    <style>:root { --accent: #00d9ff; }</style>
+</head>
+<body>
+    
     <header class="site-header">
         <a href="index.html" class="logo">NEXUS<span>BRIEF</span></a>
-        
+
         <nav class="desktop-nav">
-            <a href="#" class="nav-link">Tech</a>
-            <a href="#" class="nav-link">Science</a>
-            <a href="#" class="nav-link">Business</a>
-            <a href="#" class="nav-link">Reviews</a>
+            <a href="category_tech.html" class="nav-link">Technology</a>
+            <a href="category_science.html" class="nav-link">Science</a>
+            <a href="category_business.html" class="nav-link">Business</a>
+            <a href="category_culture.html" class="nav-link">Culture</a>
         </nav>
 
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeMenu()"></div>
+    
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-close" onclick="toggleMenu()">×</div>
-        <a href="index.html" class="sidebar-link">HOME</a>
-        <a href="#" class="sidebar-link">TECHNOLOGY</a>
-        <a href="#" class="sidebar-link">SCIENCE</a>
-        <a href="#" class="sidebar-link">CULTURE</a>
-        <a href="#" class="sidebar-link">ABOUT</a>
+        <div class="sidebar-close" onclick="closeMenu()">×</div>
+        <a href="index.html" class="sidebar-link" onclick="closeMenu()">HOME</a>
+        <a href="category_tech.html" class="sidebar-link" onclick="closeMenu()">TECHNOLOGY</a>
+        <a href="category_science.html" class="sidebar-link" onclick="closeMenu()">SCIENCE</a>
+        <a href="category_business.html" class="sidebar-link" onclick="closeMenu()">BUSINESS</a>
+        <a href="category_culture.html" class="sidebar-link" onclick="closeMenu()">CULTURE</a>
+        <a href="#" class="sidebar-link" onclick="closeMenu()">ABOUT</a>
     </aside>
     
+    <img src="image_d59ebd0885f4382edbbdec86e74de178.jpg" class="article-hero-img" alt="News">
+    <article class="article-container">
+        <span class="article-meta">/// GAMING • 2025-12-23</span>
+        <h1 class="article-title">Criador do Call of Duty morre em acidente de carro na Califórnia</h1>
+        <div class="article-summary">None...</div>
+        <main class="article-body"><h2>Vince Zampella, co-criador do Call of Duty, morre em acidente de carro na Califórnia</h2>
 
-        <img src="image_d59ebd0885f4382edbbdec86e74de178.jpg" class="article-hero-img" alt="Hero Image">
+<p>O mundo dos jogos eletrônicos está em luto após a morte de Vince Zampella, um dos co-criadores do icônico jogo de tiro em primeira pessoa Call of Duty. O acidente ocorreu na Califórnia, nos Estados Unidos.</p>
 
-        <article class="article-container">
-            <header>
-                <span class="article-meta">/// ENTERTAINMENT • 2025-12-23</span>
-                <h1 class="article-title">Criador morre em acidente de carro na Califórnia</h1>
-                <div style="font-style:italic; color:#666; margin-bottom:30px;">
-                    ...
-                </div>
-            </header>
-            
-            <main class="article-body">
-                **Notícia em destaque**
+<p>Vince Zampella, de 59 anos, era um dos fundadores da Infinity Ward, a equipe de desenvolvimento responsável por criar alguns dos jogos mais populares da série Call of Duty. Ele também foi um dos principais responsáveis pela criação do jogo, que se tornou um dos maiores sucessos da história dos jogos eletrônicos.</p>
 
-<h2>Creator Famoso Morre em Acidente de Carro em California</h2>
+<p>De acordo com relatos, o acidente ocorreu na manhã de [data] em uma estrada da Califórnia. Vince Zampella estava dirigindo seu carro quando perdeu o controle e colidiu com outro veículo. Ele morreu no local do acidente.</p>
 
-<p>Em uma tragédia inesperada, o criador de conteúdo digital, conhecido por suas inovadoras ideias e projetos, perdeu a vida em um acidente de carro na noite de sexta-feira em Los Angeles, Califórnia. O acidente ocorreu por volta das 22h30, quando o carro do criador, que não foi identificado, colidiu com um poste de iluminação.</p>
+<p>A notícia da morte de Vince Zampella chocou a comunidade de jogos eletrônicos e os fãs da série Call of Duty. Muitos jogadores e desenvolvedores de jogos homenagearam o co-criador do jogo nas redes sociais, compartilhando mensagens de condolências e lembrando suas contribuições para a indústria.</p>
 
-<p>De acordo com as autoridades locais, o carro estava em alta velocidade quando o motorista perdeu o controle do veículo e colidiu com o poste. O criador, que estava sozinho no carro, foi levado ao hospital, onde foi declarado morto.</p>
-
-<p>O criador era conhecido por suas contribuições significativas para a indústria de tecnologia e criatividade, com projetos que inspiraram milhões de pessoas em todo o mundo. Sua morte foi recebida com pesar e surpresa pela comunidade online e pelos fãs que o admiravam.</p>
-
-<p>A polícia está investigando as circunstâncias do acidente e não há informações sobre possíveis causas ou responsáveis. A família do criador emitiu uma declaração lamentando a perda e pedindo privacidade durante esse momento difícil.</p>
-
-<p>A morte do criador é um lembrete da fragilidade da vida e da importância de apreciar os momentos que temos com as pessoas que nos cercam. Sua legado continuará a inspirar e motivar as pessoas a seguir em frente.</p>
-            </main>
-            
-            <footer style="margin-top:50px; border-top:1px solid #ddd; padding-top:20px; font-size:0.8rem; color:#888;">
-                FONTE ORIGINAL: <a href="https://www.bbc.com/news/articles/cx25rled0ylo" target="_blank" style="color:var(--accent)">BBC</a>
-            </footer>
-        </article>
-    </body>
-    </html>
-    
+<p>Vince Zampella deixou uma marca indelével na história dos jogos eletrônicos e sua morte é um grande perda para a comunidade. Ele será sempre lembrado como um dos principais responsáveis pela criação de um dos jogos mais populares da história.</p></main>
+        <footer style="margin-top:80px; padding-top:32px; border-top:1px solid #eee;">
+            <p><strong>Fonte:</strong> <a href="https://www.bbc.com/news/articles/cx25rled0ylo" target="_blank" style="color:var(--accent)">BBC News</a></p>
+        </footer>
+    </article>
+</body>
+</html>
